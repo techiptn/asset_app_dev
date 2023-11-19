@@ -1,0 +1,37 @@
+
+{% extends 'bootstrap/base.html' %}
+{% block title %}IT Assets{% endblock %}
+
+{% block styles %}
+
+<!-- {{super()}} -->
+
+<link rel="stylesheet"
+    href="{{url_for('.static', filename='css/styles.css')}}"> 
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+    <div class= "col-lg">
+        <h1>All Asset</h1>
+        <div class="table-responsive"> 
+            <table class="table table-condensed">         
+            {% for table in tables %}
+                {{titles[loop.index]}}
+                {{ table|safe }}
+            {% endfor %}
+            </table>
+        </div>
+        <p class="space-above">
+            <a class="btn btn-warning btn-lg" href="{{ url_for('home') }}" role="button">Return main page</a>
+            <a class="btn btn-warning btn-lg" href="{{ url_for('downloadFile') }}" role="button">Download</a>
+            <!-- <a class="btn btn-warning btn-lg" href="{{ url_for('edit_info') }}" role="button">Edit/Update</a> -->
+        </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

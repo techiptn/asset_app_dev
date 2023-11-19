@@ -1,0 +1,43 @@
+<!-- {% extends 'bootstrap/base.html' %} -->
+
+{% block title %}IT Assets{% endblock %}
+
+{% block styles %}
+
+<!-- {{super()}} -->
+
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='css/styles.css')}}"> 
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class= "col-lg">
+      <h1>All Asset</h1>
+      <div class="table-responsive">          
+        <table class="table table-condensed">
+          <tr>
+            {% for item in col %}
+            <th>{{item}}</th>
+            {% endfor %}
+          </tr>
+            {% for row in assets %}
+          <tr>
+              {% for item in row %}
+                <td>{{ item }}</td>
+              {% endfor %}
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <p><a class="btn btn-warning btn-lg" href="{{ url_for('home') }}" role="button">Return main page</a></p>
+        <!-- <a class="btn btn-warning btn-lg" href="{{ url_for('add_info') }}" role="button">Edit!</a> -->
+    </div>
+  </div>
+</div>
+
+{% endblock %}
