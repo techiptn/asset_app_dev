@@ -10,17 +10,19 @@
 
 {% endblock %}
 
-
 {% block content %}
+
 <div class="jumbotron text-center">
     <div class="container">
-  <h1 class="display-4"> 🖥 IT Inventory 💻</h1>
+  <h1 class="display-4"> 
+          🖥 IT Inventory 💻
+        </h1>
   <p class="lead">Company IT devices</p>
   <hr class="my-4">
   <p>Keep tracking all company's IT assets.</p>
-  <a class="btn btn-warning btn-lg" href="{{ url_for('showlist') }}" role="button">Show the list!</a>
-  <a class="btn btn-warning btn-lg" href="{{ url_for('pdtable') }}" role="button">Show Table(PD)</a>
-  <a class="btn btn-warning btn-lg" href="{{ url_for('add_info') }}" role="button">Add item(s)</a>
+  <a class="btn btn-warning btn-lg" href="{{ url_for('showlist') }}" role="button">Asset List_v1</a>
+  <a class="btn btn-warning btn-lg" href="{{ url_for('pdtable') }}" role="button">Asset List(pd)</a>
+  <a class="btn btn-warning btn-lg" href="{{ url_for('add_info') }}" role="button">Add item</a>
     </div>
 </div>
 

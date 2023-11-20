@@ -140,3 +140,10 @@ def data_fillup(assetdata, userdata):
     valuedict['Updated'] = datetime.datetime.now()
     valuedict['UserName'] = username(valuedict['UserID'], userdata)
 
+
+def data_edit(userdata):
+    valuedict['Updated'] = datetime.datetime.now()
+    valuedict['UserName'] = username(valuedict['UserID'], userdata)
+
+
+

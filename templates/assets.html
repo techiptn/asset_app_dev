@@ -19,14 +19,18 @@
     <div class= "col-lg">
       <h1>All Asset</h1>
       <div class="table-responsive">          
-        <table class="table table-condensed">
+        <table class="mystyle table table-condensed">
           <tr>
+            <th>Edit</th>
             {% for item in col %}
             <th>{{item}}</th>
             {% endfor %}
           </tr>
             {% for row in assets %}
           <tr>
+                <td>
+                  <a href="{{ url_for('edit_info', code=row[0]) }}">Edit</a>
+                </td>
               {% for item in row %}
                 <td>{{ item }}</td>
               {% endfor %}
@@ -34,9 +38,11 @@
           {% endfor %}
         </table>
       </div>
-      <p><a class="btn btn-warning btn-lg" href="{{ url_for('home') }}" role="button">Return main page</a></p>
-        <!-- <a class="btn btn-warning btn-lg" href="{{ url_for('add_info') }}" role="button">Edit!</a> -->
-    </div>
+      <p class="space-above">
+        <a class="btn btn-warning btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
+        <a class="btn btn-warning btn-lg" href="{{ url_for('downloadFile') }}" role="button">Download</a>
+      </p>
+     </div>
   </div>
 </div>
 

@@ -69,10 +69,22 @@ def savebkfile(targetcsv):
     df = pd.read_csv(targetcsv)
     df.to_csv(targetcsv+tstamp)
 
+    
+
+def code_data_dic(code, assetdata):
+    df= pd.read_csv(assetdata)
+    filt = (df['AssetCode'] == code )
+    ab = df.loc[filt].to_dict('records')[0]
+    values = [x for x in ab.values()]
+    date_str = ab['Date']
+    date_format = '%Y-%m-%d'
+    date_obj = datetime.datetime.strptime(date_str, date_format)
+    values[1] = date_obj
+    return values
+    
 
 # Display only latest updated info
 # def latestonly(targetcsv):
 #     df = pd.read_csv(targetcsv)
 #     filt = (df['AssetCode', 'Updated'] == )
-#     name = df.loc[filt].to_list()[0]
 #     return name
