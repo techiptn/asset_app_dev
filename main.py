@@ -48,7 +48,7 @@ def userid_error():
     return render_template('error.html')
 
 
-@app.route('/edit/<code>', methods=["GET", "POST"])
+@app.route('/edit/<int:code>', methods=["GET", "POST"])
 def edit_info(code):
     form = EditForm()
     if form.validate_on_submit():
@@ -69,6 +69,7 @@ def edit_info(code):
             valuedict['Status'] = form.status.data
             data_edit(userdata)
             data_update(assetdata, valuedict)
+            indextrim(assetdata)
             return redirect(url_for('showlist'))
         return redirect(url_for('userid_error'))
     values2 = code_data_dic(code, assetdata)
@@ -85,15 +86,15 @@ def edit_info(code):
     form.a_tax.default = values2[9]
     form.com1.default = values2[13]
     form.com2.default = values2[14]
-    form.status.default = values2[15]
+    form.status.default = int(values2[15])
     form.process()
     return render_template('edit.html', form=form)
 
+
 @app.route('/table')
 def pdtable():
-    df = pd.read_csv(assetdata)
+    df = pd.read_csv(assetdata, index_col=0)
     return render_template('pdtable.html', tables=[df.to_html(classes='mystyle')], titles=df.columns.values)
-
 
 
 @app.route('/assets')
@@ -106,6 +107,7 @@ def showlist():
     return render_template(
         'assets.html', col=list_of_rows[0], assets=list_of_rows[1::], n = 0
         )
+
 
 @app.route('/download')
 def downloadFile():

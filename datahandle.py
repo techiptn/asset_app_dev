@@ -67,21 +67,27 @@ def username(userid, userinfo_csv):
 def savebkfile(targetcsv):
     tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     df = pd.read_csv(targetcsv)
-    df.to_csv(targetcsv+tstamp)
+    df.to_csv('bk'+tstamp)
 
-    
 
 def code_data_dic(code, assetdata):
-    df= pd.read_csv(assetdata)
-    filt = (df['AssetCode'] == code )
-    ab = df.loc[filt].to_dict('records')[0]
+    df = pd.read_csv(assetdata)
+    df2 = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+    filt2 = (df.index == code)
+    ab = df2.loc[filt2].to_dict('records')[0]
     values = [x for x in ab.values()]
     date_str = ab['Date']
     date_format = '%Y-%m-%d'
     date_obj = datetime.datetime.strptime(date_str, date_format)
     values[1] = date_obj
     return values
-    
+
+
+#Trim and arrage index
+def indextrim(data):
+    df = pd.read_csv(data)
+    df2 = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+    df2.to_csv(data)
 
 # Display only latest updated info
 # def latestonly(targetcsv):
