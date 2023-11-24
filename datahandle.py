@@ -67,9 +67,10 @@ def username(userid, userinfo_csv):
 def savebkfile(targetcsv):
     tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     df = pd.read_csv(targetcsv)
-    df.to_csv('bk'+tstamp)
+    df2 = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+    df2.to_csv('data/bk/'+tstamp+'.bk')
 
-
+#edit page default autofill
 def code_data_dic(code, assetdata):
     df = pd.read_csv(assetdata)
     df2 = df.loc[:, ~df.columns.str.contains('^Unnamed')]
@@ -90,7 +91,20 @@ def indextrim(data):
     df2.to_csv(data)
 
 # Display only latest updated info
-# def latestonly(targetcsv):
-#     df = pd.read_csv(targetcsv)
-#     filt = (df['AssetCode', 'Updated'] == )
-#     return name
+def filter_list(assetdata):
+    df = pd.read_csv(assetdata)
+    df2 = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+    # latest updated filter with the same assetcode
+    df2["Updated"] = df2["Updated"].astype('datetime64[ns]')
+    df2.reset_index(inplace=True)
+    maxval = df2.groupby('AssetCode')['Updated'].max()
+    # filter with multiple conditions
+    filt = df2['Updated'].isin(maxval) & df2['Status'] == 1
+    df_latest = df[filt]
+    return df_latest
+
+def dp_convert(df):
+    dt_col = df.columns.tolist()
+    dt_col[0] = ''
+    dt_values = df.values.tolist()
+    return [dt_col, dt_values]

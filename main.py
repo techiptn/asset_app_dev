@@ -4,14 +4,14 @@ from form import AssetForm, EditForm
 from csvcontrol import *
 import pandas as pd
 pd.set_option('display.precision', 2)
-import csv
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWligakeiKKiekSihBXox7C0sKR6b'
 Bootstrap(app)
 
 assetdata = 'data/test.csv'
-userdata = 'data/userinfo.csv'
+userdata = 'data/userinfo2.csv'
+validdata = 'data/valid_only.csv'
 
 @app.route("/")
 def home():
@@ -38,6 +38,7 @@ def add_info():
             valuedict['Status'] = form.status.data
             data_fillup(assetdata, userdata)
             data_update(assetdata, valuedict)
+            indextrim(assetdata)
             return redirect(url_for('showlist'))
         return redirect(url_for('userid_error'))
     return render_template('add.html', form=form)
@@ -99,21 +100,28 @@ def pdtable():
 
 @app.route('/assets')
 def showlist():
-    with open(assetdata, newline='') as csv_file:
-        csv_data = csv.reader(csv_file, delimiter=',')
-        list_of_rows = []
-        for row in csv_data:
-            list_of_rows.append(row)
+    list_1 = filter_list(assetdata)
+    list_v = dp_convert(list_1)
     return render_template(
-        'assets.html', col=list_of_rows[0], assets=list_of_rows[1::], n = 0
-        )
+        'assets.html', col=list_v[0], assets=list_v[1], n = 0)
 
 
 @app.route('/download')
 def downloadFile():
     #For windows you need to use drive name [ex: F:/Example.pdf]
-    rename = 'IT_asset_'+datetime.datetime.now().strftime("%Y-%m-%d")+'.csv'
+    rename = 'IT_asset_raw_'+datetime.datetime.now().strftime("%Y-%m-%d")+'.csv'
     path = assetdata
+    return send_file(path, as_attachment=True, attachment_filename = rename)
+
+
+@app.route('/valid_only')
+def valid_only():
+    #For windows you need to use drive name [ex: F:/Example.pdf]
+    rename = 'IT_asset_valid_only'+datetime.datetime.now().strftime("%Y-%m-%d")+'.csv'
+    datapd = filter_list(assetdata)
+    datapd2 = datapd.loc[:, ~datapd.columns.str.contains('^Unnamed')]
+    datapd2.to_csv(validdata)
+    path = validdata
     return send_file(path, as_attachment=True, attachment_filename = rename)
 
 
