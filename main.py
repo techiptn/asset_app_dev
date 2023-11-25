@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, send_file
+from flask import Flask, render_template, redirect, url_for, send_file, request
 from flask_bootstrap import Bootstrap
 from form import AssetForm, EditForm
 from csvcontrol import *
@@ -115,6 +115,18 @@ def raw_edit():
     list_v = dp_convert(df)
     return render_template(
         'rawedit.html', col=list_v[0], assets=list_v[1], n = 0)
+
+
+@app.route('/checkbox', methods=["GET", "POST"])
+def checkbox():
+    if request.method == 'POST':
+        print(request.form.getlist('selected'))
+        return 'Done'
+    list_1 = filter_list(assetdata)
+    list_v = dp_convert(list_1)
+    return render_template(
+        'checkbox.html', col=list_v[0], assets=list_v[1], n = 0)
+
 
 @app.route('/error/<userinfo>')
 def userid_error(userinfo):
