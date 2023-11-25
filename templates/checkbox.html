@@ -1,27 +1,21 @@
-<!-- {% extends 'bootstrap/base.html' %} -->
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}IT Assets{% endblock %}
+<head>
+  <meta charset="utf-8">
+  <title>CheckBox for the Labels</title>
 
-{% block styles %}
+<link href="{{url_for('.static', filename='css/styles.css')}}" rel="stylesheet"> 
+<link rel="icon" type="image/x-icon" href="static/favicon.ico">
+</head>
 
-{{super()}}
-
-<link rel="stylesheet"
-      href="{{url_for('.static', filename='css/styles.css')}}"> 
-
-{% endblock %}
-
-
-{% block content %}
+<body>
 <form method="POST" action='checkbox'>
 <div class="container">
-  <div class="row">
-    <div class= "col-lg">
-      
-      <h3>Create Asset Lable</h3>
-      <div class="table-responsive">         
-        <table class="mystyle table table-condensed">
-          <tr>
+  <h3 class="space">Create Asset Lable</h3>
+    <div class="container">       
+      <table class="mystyle">
+        <tr>
             <th>Select</th>
             {% for item in col %}
             <th>{{item}}</th>
@@ -39,15 +33,15 @@
           {% endfor %}
         </table>
       </div>
+      <p class="space">
       <input type="submit" value="Create Lables">
+      </p>
       <p class="space-above">
         <a class="btn btn-link btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
         <a class="btn btn-link btn-lg" href="{{ url_for('add_info') }}" role="button">Add an Item</a>
         <a class="btn btn-link btn-lg" href="{{ url_for('raw_edit') }}" role="button">Show Raw data</a>
         <a class="btn btn-link btn-lg" href="{{ url_for('valid_only') }}" role="button">Download</a>
       </p>
-      </div>
-  </div>
 </div>
 </form>
-{% endblock %}
+</body>

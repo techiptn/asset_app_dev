@@ -1,30 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- {% extends 'bootstrap/base.html' %} -->
-{% block title %}IT Inventory Main{% endblock %}
-{% block styles %}
+<head>
+  <meta charset="utf-8">
+  <title>CheckBox for the Labels</title>
 
-<!-- {{super()}} -->
+<link href="{{url_for('.static', filename='css/styles.css')}}" rel="stylesheet"> 
+<link rel="icon" type="image/x-icon" href="static/favicon.ico">
 
-<link rel="stylesheet"
-      href="{{url_for('.static', filename='css/styles.css')}}">
-
-{% endblock %}
-
-{% block content %}
-
-<div class="jumbotron text-center">
-    <div class="container">
-  <h1 class="display-4"> 
-          🖥 IT Inventory 💻
-        </h1>
-  <!-- <p class="lead">Company IT devices</p> -->
-  <p class="lead"></p>
-  <hr class="my-4">
-  <p>Keep tracking all company's IT assets.</p>
-  <a class="btn-info btn-lg" href="{{ url_for('showlist') }}" role="button">Show the List</a>
-  <!-- <a class="btn btn-warning btn-lg" href="{{ url_for('pdtable') }}" role="button">Table Raw List</a> -->
-  <a class="btn-info btn-lg" href="{{ url_for('add_info') }}" role="button">Add Items</a>
-    </div>
+</head>
+<div class="container">
+<img src="../static/logo.png" width=25%></img>
 </div>
 
-{% endblock %}
+<body>
+<div class="jumbotron">
+    <div class="container">
+  <h1> IT Inventory </h1>
+  <p>Keep tracking all IT Equiptment.</p>
+  </div>
+  <div class="space">
+    <a class="button button-lg" href="{{ url_for('showlist') }}" role="button">Show the List</a>
+    <!-- <a class="btn-info btn-lg" href="{{ url_for('pdtable') }}" role="button">Table Raw List</a> -->
+    <a class="button button-lg" href="{{ url_for('add_info') }}" role="button">Add Items</a>
+  </div>
+  </div>
+</body>

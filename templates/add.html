@@ -1,33 +1,28 @@
-<!-- {% extends 'bootstrap/base.html' %} -->
+{% extends 'bootstrap/base.html' %}
 
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Add A New Device{% endblock %}
+{% block title %}Edit{% endblock %}
 
 {% block styles %}
 
-<!-- {{super()}} -->
+{{super()}}
 
 <link rel="stylesheet"
       href="{{url_for('.static', filename='css/styles.css')}}">
+<link rel="icon" type="image/x-icon" href="static/favicon.ico">
 
 {% endblock %}
 
 {% block content %}
 <div class="container">
-  <div class="row">
-    <div class="col-sm-12 col-md-8">
-
       <h3>Add new asset into the database</h3>
       <!-- This is where your WTForm will go -->
       {{ wtf.quick_form(form, novalidate=True) }}
-
-      <p class="space-above">
-        <a class="btn-link btn-lg" href="{{ url_for('showlist') }}" role="button">Back to the List</a>
-      </p>
-    
-    </div>
-  </div>
 </div>
+
+<p class="space-above">
+  <a class="btn-link btn-lg" href="{{ url_for('showlist') }}" role="button">Back to the List</a>
+</p>
 
 {% endblock %}

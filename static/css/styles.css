@@ -2,14 +2,62 @@
 your web pages for the styles to be rendered. */
 
 body {
-/* background-color: rgb(14,22,65);
-color: white; */
+font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  font-size: 45pt;
 }
 
 
 a {
   color: rgb(40, 113, 215);
+  margin: 10px;
 }
+
+.button{
+  border-radius: 50%;
+  background-color: rgb(63, 190, 220);
+  color: white;
+  font-size: smaller; 
+  padding: 5px 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: darkblue;
+  cursor: pointer;
+}
+
+.button-lg{
+  border-radius: 30%;
+  font-size: large;
+}
+
+
+
+.button2{
+  background-color: rgb(230, 130, 130);
+  color: white;
+  font-size: smaller; 
+  padding: 5px 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button2:hover {
+  background: red;
+  cursor: pointer;
+}
+
+
+.container {
+  position: relative;
+  margin: 10px 20px 0px 20px;
+  overflow: scroll;
+}
+
 
 .body2 {
   background-color: rgb(255,255,255);
@@ -17,27 +65,24 @@ a {
   }
 
 
-.btn1 {
-  background-color: rgb(241, 8, 8);
-  }
-
-
 .jumbotron {
-  display: flex;
+  width: 50%;
+  margin: auto;
+  text-align: center;
   align-items: center;
-  margin: 0;
-  height: 100vh;
   color: rgb(40, 113, 215);
   background-color:  rgb(255,255,255);
 }
 
 .space-above {
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 10px;
+    padding-top: 10px;
 }
 
-.table-condensed{
-  font-size: 12px;
+
+.space {
+  margin: 20px 20px 0px 20px;
+  padding: 10px;
 }
 
 
@@ -47,34 +92,59 @@ a {
   font-size: 10pt; 
   font-family: Arial;
   border-collapse: collapse; 
-  border: 1px solid rgb(9, 9, 9);
-
+  border: 1px solid gainsboro;
+  padding: 5px 5px;
+  margin: 10px 10px;
 }
 
-.mystyle td, th {
-  padding: 5px;
+.mystyle th {
+  background-color:  rgb(40, 113, 215);
+  color: aliceblue;
+  text-align: center;
 }
 
-/* .mystyle tr:nth-child(even) {
-  background: rgb(40,113,206);
-} */
+
+.mystyle tr {
+  width: 100%;
+  height: 40px;
+}
+
+.mystyle tr:nth-child(even) {
+  background: gainsboro;
+}
 
 .mystyle tr:hover {
   background: rgb(63, 190, 220);
   cursor: pointer;
 }
 
-input[type=button], input[type=submit], input[type=reset] {
+input[type=submit] {
   background-color: rgb(63, 190, 220);
   border: 1px solid;
   color: white;
+  font-size: small;
   padding: 10px 10px;
   text-decoration: none;
-  margin: 2px 2px;
   cursor: pointer;
 }
 
 input[type=submit]:hover {
   background: rgb(40, 113, 215);
+  cursor: pointer;
+}
+
+input[type=button] {
+  background-color: rgb(63, 190, 220);
+  border: 1px solid;
+  color: white;
+  font-size: smaller; 
+  padding: 5px 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+input[type=button]:hover {
+  background: gray;
   cursor: pointer;
 }
