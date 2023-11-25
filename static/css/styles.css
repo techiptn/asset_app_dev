@@ -2,21 +2,33 @@
 your web pages for the styles to be rendered. */
 
 body {
-background-color: rgb(14,22,65);
-color: white;
+/* background-color: rgb(14,22,65);
+color: white; */
 }
 
+
 a {
-    color: #f2f1ed;
+  color: rgb(40, 113, 215);
 }
+
+.body2 {
+  background-color: rgb(255,255,255);
+  color: #010100;
+  }
+
+
+.btn1 {
+  background-color: rgb(241, 8, 8);
+  }
+
 
 .jumbotron {
   display: flex;
   align-items: center;
   margin: 0;
   height: 100vh;
-  color: white;
-  background-color:  rgb(14,22,65);
+  color: rgb(40, 113, 215);
+  background-color:  rgb(255,255,255);
 }
 
 .space-above {
@@ -35,7 +47,7 @@ a {
   font-size: 10pt; 
   font-family: Arial;
   border-collapse: collapse; 
-  border: 1px solid silver;
+  border: 1px solid rgb(9, 9, 9);
 
 }
 
@@ -48,6 +60,6 @@ a {
 } */
 
 .mystyle tr:hover {
-  background: rgb(40,113,206);
+  background: rgb(63, 190, 220);
   cursor: pointer;
 }

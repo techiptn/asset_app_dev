@@ -1,12 +1,11 @@
 
-{% extends 'bootstrap/base.html' %}
-{% import "bootstrap/wtf.html" as wtf %}
+<!-- {% extends 'bootstrap/base.html' %} -->
 
-{% block title %}Add A New Device{% endblock %}
+{% block title %}Error page{% endblock %}
 
 {% block styles %}
 
-{{super()}}
+<!-- {{super()}} -->
 
 <link rel="stylesheet"
       href="{{url_for('.static', filename='css/styles.css')}}">
@@ -17,10 +16,14 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-8">
-
-      <h1>Please Check userID</h1>
-
-      <a class="btn btn-warning btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
+      <p class="space-above">
+      <h2>UserID Error </h2>
+      <h3>UserID {{userinfo}} is not in the User Database </h3>
+      <h3>Please Check and Try again </h3>
+      </p>
+      <p class="space-above">
+      <a class="btn-link btn-lg" href="{{ url_for('showlist') }}" role="button">Back to the List</a>
+      </p>
 
     </div>
   </div>

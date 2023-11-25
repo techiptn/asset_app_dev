@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWligakeiKKiekSihBXox7C0sKR6b'
 Bootstrap(app)
 
-assetdata = 'data/test.csv'
+assetdata = 'data/test2.csv'
 userdata = 'data/userinfo2.csv'
 validdata = 'data/valid_only.csv'
 
@@ -44,11 +44,6 @@ def add_info():
     return render_template('add.html', form=form)
 
 
-@app.route('/error')
-def userid_error():
-    return render_template('error.html')
-
-
 @app.route('/edit/<int:code>', methods=["GET", "POST"])
 def edit_info(code):
     form = EditForm()
@@ -63,6 +58,7 @@ def edit_info(code):
             valuedict['SN'] = form.sn.data
             valuedict['UserID'] = form.user.data
             valuedict['CurrentLocation'] = form.c_loca.data
+            valuedict['PurchasePrice(+Tx)'] = form.t_value.data
             valuedict['AcquisitionValue(CAD)'] = form.a_value.data
             valuedict['Tax'] = form.a_tax.data
             valuedict['Com1'] = form.com1.data
@@ -72,7 +68,7 @@ def edit_info(code):
             data_update(assetdata, valuedict)
             indextrim(assetdata)
             return redirect(url_for('showlist'))
-        return redirect(url_for('userid_error'))
+        return redirect(url_for('userid_error', userinfo = form.user.data))
     values2 = code_data_dic(code, assetdata)
     form.a_code.default = values2[0]
     form.date.default = values2[1]
@@ -83,6 +79,7 @@ def edit_info(code):
     form.sn.default = values2[6]
     form.user.default = values2[10]
     form.c_loca.default = values2[12]
+    form.t_value.default = values2[7]
     form.a_value.default = values2[8]
     form.a_tax.default = values2[9]
     form.com1.default = values2[13]
@@ -98,12 +95,30 @@ def pdtable():
     return render_template('pdtable.html', tables=[df.to_html(classes='mystyle')], titles=df.columns.values)
 
 
+@app.route('/delete/<int:code>', methods=["GET", "POST"])
+def delete_item(code):
+    data_delete(code, assetdata)
+    return redirect(url_for('raw_edit'))
+    
+
 @app.route('/assets')
 def showlist():
     list_1 = filter_list(assetdata)
     list_v = dp_convert(list_1)
     return render_template(
         'assets.html', col=list_v[0], assets=list_v[1], n = 0)
+
+
+@app.route('/raw_edit')
+def raw_edit():
+    df = pd.read_csv(assetdata, index_col=0)
+    list_v = dp_convert(df)
+    return render_template(
+        'rawedit.html', col=list_v[0], assets=list_v[1], n = 0)
+
+@app.route('/error/<userinfo>')
+def userid_error(userinfo):
+    return render_template('error.html', userinfo = userinfo)
 
 
 @app.route('/download')

@@ -1,8 +1,8 @@
+<!-- {% extends 'bootstrap/base.html' %} -->
 
-{% extends 'bootstrap/base.html' %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Add A New Device{% endblock %}
+{% block title %}Edit{% endblock %}
 
 {% block styles %}
 
@@ -18,10 +18,12 @@
   <div class="row">
     <div class="col-sm-12 col-md-8">
 
-      <h1>Edit/Update the asset information</h1>
+      <h3>Edit the asset information</h3>
       {{ wtf.quick_form(form, novalidate=True) }}
       
-  <p class="space-above"><a href="{{ url_for('showlist') }}">Back to list</a></p>
+  <p class="space-above">
+    <a class="btn-link btn-lg" href="{{ url_for('showlist') }}" role="button">Back to the List</a>
+  </p>
 
     </div>
   </div>

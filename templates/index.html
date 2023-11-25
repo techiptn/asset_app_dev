@@ -1,9 +1,9 @@
 
-{% extends 'bootstrap/base.html' %}
-{% block title %}Coffee and Wifi{% endblock %}
+<!-- {% extends 'bootstrap/base.html' %} -->
+{% block title %}IT Inventory Main{% endblock %}
 {% block styles %}
 
-{{super()}}
+<!-- {{super()}} -->
 
 <link rel="stylesheet"
       href="{{url_for('.static', filename='css/styles.css')}}">
@@ -21,9 +21,9 @@
   <p class="lead"></p>
   <hr class="my-4">
   <p>Keep tracking all company's IT assets.</p>
-  <a class="btn btn-warning btn-lg" href="{{ url_for('showlist') }}" role="button">Asset List_v1</a>
-  <a class="btn btn-warning btn-lg" href="{{ url_for('pdtable') }}" role="button">Asset List(pd)</a>
-  <a class="btn btn-warning btn-lg" href="{{ url_for('add_info') }}" role="button">Add item</a>
+  <a class="btn-info btn-lg" href="{{ url_for('showlist') }}" role="button">Show the List</a>
+  <!-- <a class="btn btn-warning btn-lg" href="{{ url_for('pdtable') }}" role="button">Table Raw List</a> -->
+  <a class="btn-info btn-lg" href="{{ url_for('add_info') }}" role="button">Add Items</a>
     </div>
 </div>
 

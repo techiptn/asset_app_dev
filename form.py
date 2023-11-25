@@ -85,6 +85,9 @@ class EditForm(FlaskForm):
         "CurrentLocation", choices=[x for x in c_loca.values()],
         validators=[DataRequired()]
         )
+    t_value = FloatField(
+        "PurchasePrice(+Tx)", validators=[DataRequired()]
+        )
     a_value = FloatField(
         "AcquisitionValue(CAD)", validators=[DataRequired()]
         )

@@ -49,8 +49,8 @@ def get_key(d_name, val):
 
 
 # count Itemcode
-def nextcode(digit7, data_path):
-    df = pd.read_csv(data_path)
+def nextcode(digit7, assetdata):
+    df = pd.read_csv(assetdata)
     filt = (df['AssetCode'].str[0:7] == digit7)
     nx = df['AssetCode'][filt].count() + 1
     strnx = ("{0:0=3d}".format(nx))
@@ -64,18 +64,16 @@ def username(userid, userinfo_csv):
     return name
 
 # UserID and Name
-def savebkfile(targetcsv):
+def savebkfile(assetdata):
     tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    df = pd.read_csv(targetcsv)
-    df2 = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-    df2.to_csv('data/bk/'+tstamp+'.bk')
+    df = pd.read_csv(assetdata, index_col=0)
+    df.to_csv('data/bk/'+tstamp+'.bk')
 
 #edit page default autofill
 def code_data_dic(code, assetdata):
-    df = pd.read_csv(assetdata)
-    df2 = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+    df = pd.read_csv(assetdata, index_col=0)
     filt2 = (df.index == code)
-    ab = df2.loc[filt2].to_dict('records')[0]
+    ab = df.loc[filt2].to_dict('records')[0]
     values = [x for x in ab.values()]
     date_str = ab['Date']
     date_format = '%Y-%m-%d'
@@ -83,27 +81,32 @@ def code_data_dic(code, assetdata):
     values[1] = date_obj
     return values
 
+#Delete values
+def data_delete(code, assetdata):
+    df = pd.read_csv(assetdata, index_col=0)
+    df3 = df.drop(code)
+    savebkfile(assetdata)
+    df3.to_csv(assetdata)
+
 
 #Trim and arrage index
-def indextrim(data):
-    df = pd.read_csv(data)
+def indextrim(assetdata):
+    df = pd.read_csv(assetdata)
     df2 = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-    df2.to_csv(data)
+    df2.to_csv(assetdata)
 
 # Display only latest updated info
 def filter_list(assetdata):
-    df = pd.read_csv(assetdata)
-    df2 = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-    # latest updated filter with the same assetcode
-    df2["Updated"] = df2["Updated"].astype('datetime64[ns]')
-    df2.reset_index(inplace=True)
-    maxval = df2.groupby('AssetCode')['Updated'].max()
+    df = pd.read_csv(assetdata, index_col=0)
+    df["Updated"] = df["Updated"].astype('datetime64[ns]')
+    maxval = df.groupby('AssetCode')['Updated'].max()
     # filter with multiple conditions
-    filt = df2['Updated'].isin(maxval) & df2['Status'] == 1
+    filt = df['Updated'].isin(maxval) & df['Status'] == 1
     df_latest = df[filt]
     return df_latest
 
 def dp_convert(df):
+    df.reset_index(inplace=True)
     dt_col = df.columns.tolist()
     dt_col[0] = ''
     dt_values = df.values.tolist()

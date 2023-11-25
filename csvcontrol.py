@@ -2,20 +2,20 @@ import csv
 from datafield import *
 from datahandle import *
 
-def data_read(datalist):
-    with open(datalist, 'r') as a_list:
+def data_read(assetdata):
+    with open(assetdata, 'r') as a_list:
         reader = csv.DictReader(a_list)
         data = list(reader)
         a_list.close()
     return data
 
 
-def data_update(datalist, update_dict):
-    savebkfile(datalist)
-    dl = data_read(datalist)
+def data_update(assetdata, update_dict):
+    savebkfile(assetdata)
+    dl = data_read(assetdata)
     fieldnames = list(dl[0].keys())
 
-    with open(datalist, 'a') as a_list:
+    with open(assetdata, 'a') as a_list:
         writer = csv.DictWriter(a_list, fieldnames=fieldnames)
         # writer.writeheader()
         writer.writerow(update_dict)

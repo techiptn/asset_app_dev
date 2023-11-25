@@ -71,7 +71,8 @@ m_choices = {
         'D': 'Dell', 'L': 'Lenovo', 'S': 'Samsung',
         'G': 'LG', 'U': 'ASUS', 'F': 'FortiGate',
         'Q': 'Qnap', 'A': 'APPLE', 'T': 'TP-Link',
-        'C': 'Canon', 'H': 'HP', 'E': 'ETCs'
+        'C': 'Canon', 'H': 'HP', 'M': 'MeetingOwl',
+        'E': 'ETCs'
     }
 
 # option fields
