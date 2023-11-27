@@ -58,6 +58,12 @@ a {
   overflow: scroll;
 }
 
+.container-center {
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+  align-items: center;
+}
 
 .body2 {
   background-color: rgb(255,255,255);

@@ -4,7 +4,7 @@ from form import AssetForm, EditForm
 from csvcontrol import *
 from module import *
 import pandas as pd
-pd.set_option('display.precision', 2)
+# pd.set_option('display.precision', 2)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWligakeiKKiekSihBXox7C0sKR6b'
@@ -91,7 +91,7 @@ def edit_info(code):
     form.process()
     return render_template('edit.html', form=form)
 
-
+#Just for referance (Panda table veiwing)
 @app.route('/table')
 def pdtable():
     df = pd.read_csv(assetdata, index_col=0)
@@ -130,7 +130,7 @@ def checkbox():
             qr_img_dict[i].save(f'{labelpath}/{i}.png')
         stream = zipfiles(labelpath)
         return send_file(stream, as_attachment=True, 
-                        attachment_filename='archive_labels.zip'
+                            download_name='labels.zip'
                         )
     list_1 = filter_list(assetdata)
     list_v = dp_convert(list_1)
@@ -148,7 +148,7 @@ def downloadFile():
     #For windows you need to use drive name [ex: F:/Example.pdf]
     rename = 'IT_asset_raw_'+datetime.datetime.now().strftime("%Y-%m-%d")+'.csv'
     path = assetdata
-    return send_file(path, as_attachment=True, attachment_filename = rename)
+    return send_file(path, as_attachment=True, download_name=rename)
 
 
 @app.route('/valid_only')
@@ -159,7 +159,7 @@ def valid_only():
     datapd2 = datapd.loc[:, ~datapd.columns.str.contains('^Unnamed')]
     datapd2.to_csv(validdata)
     path = validdata
-    return send_file(path, as_attachment=True, attachment_filename = rename)
+    return send_file(path, as_attachment=True, download_name= rename)
 
 
 if __name__ == '__main__':
