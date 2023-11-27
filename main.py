@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, send_file, request
 from flask_bootstrap import Bootstrap
 from form import AssetForm, EditForm
 from csvcontrol import *
+from module import *
 import pandas as pd
 pd.set_option('display.precision', 2)
 
@@ -9,9 +10,11 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWligakeiKKiekSihBXox7C0sKR6b'
 Bootstrap(app)
 
-assetdata = 'data/test2.csv'
+assetdata = 'data/test.csv'
 userdata = 'data/userinfo2.csv'
 validdata = 'data/valid_only.csv'
+bkpath = 'data/bk'
+labelpath = 'data/label'
 
 @app.route("/")
 def home():
@@ -119,9 +122,16 @@ def raw_edit():
 
 @app.route('/checkbox', methods=["GET", "POST"])
 def checkbox():
-    if request.method == 'POST':
-        print(request.form.getlist('selected'))
-        return 'Done'
+    if request.method == 'POST' and len(request.form.getlist('selected')) > 0:
+        cleanupfolder(labelpath)
+        qlist = request.form.getlist('selected')
+        qr_img_dict = qr_sv_img(assetdata, qlist)
+        for i in qr_img_dict.keys():
+            qr_img_dict[i].save(f'{labelpath}/{i}.png')
+        stream = zipfiles(labelpath)
+        return send_file(stream, as_attachment=True, 
+                        attachment_filename='archive_labels.zip'
+                        )
     list_1 = filter_list(assetdata)
     list_v = dp_convert(list_1)
     return render_template(

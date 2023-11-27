@@ -1,4 +1,4 @@
 data/*
 /__*
-
+/static/label/*
 # *.pdf
