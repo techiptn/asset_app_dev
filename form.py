@@ -105,3 +105,13 @@ class EditForm(FlaskForm):
         validators=[DataRequired()]
         )
     submit = SubmitField('Submit')
+
+
+class UserForm(FlaskForm):
+    userid = StringField(
+        "UserID", validators=[DataRequired()]
+        )
+    username = StringField(
+        "UserName", validators=[DataRequired()]
+        )
+    submit = SubmitField('Submit')

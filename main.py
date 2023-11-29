@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, send_file, request
 from flask_bootstrap import Bootstrap
-from form import AssetForm, EditForm
+from form import AssetForm, EditForm, UserForm
 from csvcontrol import *
 from module import *
 import pandas as pd
@@ -100,8 +100,14 @@ def pdtable():
 
 @app.route('/delete/<int:code>', methods=["GET", "POST"])
 def delete_item(code):
-    data_delete(code, assetdata)
+    data_delete(code, assetdata, 'asset')
     return redirect(url_for('raw_edit'))
+
+
+@app.route('/delete2/<int:code>', methods=["GET", "POST"])
+def delete_user(code):
+    data_delete(code, userdata, 'user')
+    return redirect(url_for('userlist'))
     
 
 @app.route('/assets')
@@ -119,7 +125,7 @@ def raw_edit():
     return render_template(
         'rawedit.html', col=list_v[0], assets=list_v[1], n = 0)
 
-
+#Create Label
 @app.route('/checkbox', methods=["GET", "POST"])
 def checkbox():
     if request.method == 'POST' and len(request.form.getlist('selected')) > 0:
@@ -136,6 +142,42 @@ def checkbox():
     list_v = dp_convert(list_1)
     return render_template(
         'checkbox.html', col=list_v[0], assets=list_v[1], n = 0)
+
+#User info management
+@app.route('/user')
+def userlist():
+    list_1 = pd.read_csv(userdata, index_col=0)
+    list_v = dp_convert(list_1)
+    return render_template(
+        'userlist.html', col=list_v[0], assets=list_v[1], n = 0)
+
+
+@app.route('/user_add', methods=["GET", "POST"])
+def add_user():
+    form = UserForm()
+    if form.validate_on_submit():
+        id = form.userid.data
+        name = form.username.data
+        adduser(id, name, userdata)
+        return redirect(url_for('userlist'))
+    return render_template('adduser.html', form=form)
+
+
+@app.route('/useredit/<int:code>', methods=["GET", "POST"])
+def useredit_info(code):
+    form = UserForm()
+    if form.validate_on_submit():
+        id = form.userid.data
+        name = form.username.data
+        data_delete(code, userdata, 'user')
+        adduser(id, name, userdata)
+        return redirect(url_for('userlist'))
+    values2 = code_user(code, userdata)
+    form.userid.default = values2[0]
+    form.username.default = values2[1]
+    form.process()
+    return render_template('edit.html', form=form)
+
 
 
 @app.route('/error/<userinfo>')

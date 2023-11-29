@@ -2,7 +2,7 @@
 
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Edit{% endblock %}
+{% block title %}Add User{% endblock %}
 
 {% block styles %}
 
@@ -11,20 +11,19 @@
 <link rel="stylesheet"
       href="{{url_for('.static', filename='css/styles.css')}}">
 <link rel="icon" type="image/x-icon" href="static/img/favicon.ico">
-
 {% endblock %}
 
 {% block content %}
 <div class="container">
-
-      <h3>Edit the information</h3>
+      <h3>Add a new User into the database</h3>
+      <!-- This is where your WTForm will go -->
       {{ wtf.quick_form(form, novalidate=True) }}
-
 </div>
-  <p class="space">
-    <a class="btn btn-link btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
-    <a class="btn btn-link btn-lg" href="{{ url_for('showlist') }}" role="button">Asset List</a>
-    <a class="btn btn-link btn-lg" href="{{ url_for('userlist') }}" role="button">User List</a>
-  </p>
+
+
+<p class="space">
+      <a class="btn btn-link btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
+      <a class="btn btn-link btn-lg" href="{{ url_for('userlist') }}" role="button">Back to the List</a>
+</p>
 
 {% endblock %}

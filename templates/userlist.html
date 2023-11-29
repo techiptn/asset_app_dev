@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Edit or Delete the data</title>
+
+<link href="{{url_for('.static', filename='css/styles.css')}}" rel="stylesheet"> 
+<link rel="icon" type="image/x-icon" href="static/img/favicon.ico">
+</head>
+
+
+<body>
+  <h3 class="space">All Inventory Records</h3>
+<div class="container">
+  <table class="mystyle table table-condensed">
+    <tr>
+      <th>Edit</th>
+      <th>Delete</th>
+      {% for item in col %}
+      <th>{{item}}</th>
+      {% endfor %}
+    </tr>
+      {% for row in assets %}
+    <tr>
+          <td>
+            <a class="button" href="{{ url_for('useredit_info', code=row[0]) }}">Edit</a>
+          </td>
+          <td>
+            <a class="button2" href="{{ url_for('delete_user', code=row[0]) }}">Del</a>
+          </td>
+        {% for item in row %}
+          <td>{{ item }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+<p class="space">
+  <a class="btn btn-link btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
+  <a class="btn btn-link btn-lg" href="{{ url_for('add_user') }}" role="button">Add a new User</a>
+  <!-- <a class="btn btn-link btn-lg" href="{{ url_for('valid_only') }}" role="button">Download</a> -->
+</p>
+
+</body>

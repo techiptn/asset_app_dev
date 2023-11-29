@@ -20,8 +20,9 @@
       {{ wtf.quick_form(form, novalidate=True) }}
 </div>
 
-<p class="space-above">
-  <a class="btn-link btn-lg" href="{{ url_for('showlist') }}" role="button">Back to the List</a>
+<p class="space">
+      <a class="btn btn-link btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
+      <a class="btn btn-link btn-lg" href="{{ url_for('showlist') }}" role="button">Back to the List</a>
 </p>
 
 {% endblock %}

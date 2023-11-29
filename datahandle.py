@@ -68,10 +68,15 @@ def username(userid, userinfo_csv):
     return name
 
 # UserID and Name
-def savebkfile(assetdata):
+def savebkfile(data):
     tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    df = pd.read_csv(assetdata, index_col=0)
+    df = pd.read_csv(data, index_col=0)
     df.to_csv('data/bk/'+tstamp+'.bk')
+
+def user_bkfile(data):
+    tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    df = pd.read_csv(data, index_col=0)
+    df.to_csv('data/bk/ud'+tstamp+'.bk')
 
 #edit page default autofill
 def code_data_dic(code, assetdata):
@@ -86,11 +91,35 @@ def code_data_dic(code, assetdata):
     return values
 
 #Delete values
-def data_delete(code, assetdata):
-    df = pd.read_csv(assetdata, index_col=0)
+def data_delete(code, data, ack):
+    df = pd.read_csv(data, index_col=0)
     df3 = df.drop(code)
-    savebkfile(assetdata)
-    df3.to_csv(assetdata)
+    if ack == 'asset':
+        savebkfile(data)
+    elif ack == 'user':
+        user_bkfile(data)
+    df3.to_csv(data)
+
+
+#Add user info
+def adduser(id, name, userdata):
+    df = pd.read_csv(userdata, index_col=0)
+    new = {'UserID':[id],
+        'UserName':[name]}
+    new['email'] = [new['UserID'][0]+'@ultiumcam.net']
+    df2 = pd.DataFrame.from_dict(new)
+    df3 = pd.concat([df, df2], ignore_index=True)
+    user_bkfile(userdata)
+    df3.to_csv(userdata)
+
+
+#edit user default autofill
+def code_user(code, userdata):
+    df = pd.read_csv(userdata, index_col=0)
+    filt2 = (df.index == code)
+    ab = df.loc[filt2].to_dict('records')[0]
+    values = [x for x in ab.values()]
+    return values
 
 
 #Trim and arrage index
