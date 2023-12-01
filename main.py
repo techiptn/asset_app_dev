@@ -20,6 +20,10 @@ labelpath = 'data/label'
 def home():
     return render_template("index.html")
 
+@app.route("/clean")
+def clean():
+    cleanupfolder(bkpath)
+    return render_template('cleanup.html')
 
 @app.route('/add', methods=["GET", "POST"])
 def add_info():
@@ -108,7 +112,7 @@ def delete_item(code):
 def delete_user(code):
     data_delete(code, userdata, 'user')
     return redirect(url_for('userlist'))
-    
+
 
 @app.route('/assets')
 def showlist():
