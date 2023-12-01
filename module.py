@@ -7,7 +7,7 @@ path = os.getcwd()
 
 # Mac font
 font = ImageFont.truetype('Arial.ttf', 50)
-font2 = ImageFont.truetype('Arial.ttf', 60)
+font2 = ImageFont.truetype('Arial.ttf', 50)
 font3 = ImageFont.truetype('Arial Bold.ttf', 70)
 
 # ultiumCAM color
@@ -37,17 +37,17 @@ def qr_gen(acode, date, sn, user):
     # Put the logo and QC code on background
     base = imgbg.copy()
     base.paste(logore, (31, 125), logore)
-    base.paste(g_img2, (31, 344))
+    base.paste(g_img2, (31, 350))
     draw = ImageDraw.Draw(base)
-    draw.text((31.25, 31.25), "PROPERTY OF", color1, font=font)
+    draw.text((31.25, 31.25), "PROPRIÉTÉ DE / PROPERTY OF", color1, font=font)
 
     # asset code & date & User
-    draw.text((313, 375), 'DATE', color1, font=font2)
-    draw.text((313, 438), 'CODE', color1, font=font2)
-    draw.text((313, 500), 'USER', color1, font=font2)
-    draw.text((525, 375), f': {date}', color1, font=font2)
-    draw.text((525, 438), f': {acode}', color1, font=font2)
-    draw.text((525, 500), f': {user}', color1, font=font2)
+    draw.text((313, 368), 'DATE :', color1, font=font2)
+    draw.text((313, 431), 'CODE :', color1, font=font2)
+    draw.text((313, 493), 'NOM / NAME :', color1, font=font2)
+    draw.text((525, 368), f'{date}', color1, font=font2)
+    draw.text((525, 431), f'{acode}', color1, font=font2)
+    draw.text((313, 545), f'{user}', color1, font=font2)
 
     # Size adjusting
     base1 = base.resize(size=(1008, 504))

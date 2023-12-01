@@ -31,7 +31,7 @@ a {
 }
 
 .button-lg{
-  border-radius: 30%;
+  border-radius: 50%;
   font-size: large;
 }
 
@@ -105,13 +105,15 @@ a {
 
 .mystyle th {
   background-color:  rgb(40, 113, 215);
+  min-width: 100px;
   color: aliceblue;
   text-align: center;
 }
 
 .mystyle tr {
-  width: 100%;
+  width: auto;
   height: 40px;
+  text-align: center;
 }
 
 .mystyle tr:nth-child(even) {
