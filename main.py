@@ -13,17 +13,12 @@ Bootstrap(app)
 assetdata = 'data/test.csv'
 userdata = 'data/userinfo2.csv'
 validdata = 'data/valid_only.csv'
-bkpath = 'data/bk'
 labelpath = 'data/label'
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-@app.route("/clean")
-def clean():
-    cleanupfolder(bkpath)
-    return render_template('cleanup.html')
 
 @app.route('/add', methods=["GET", "POST"])
 def add_info():
@@ -47,7 +42,7 @@ def add_info():
             data_update(assetdata, valuedict)
             indextrim(assetdata)
             return redirect(url_for('showlist'))
-        return redirect(url_for('userid_error'))
+        return redirect(url_for('userid_error', userinfo = form.user.data))
     return render_template('add.html', form=form)
 
 
@@ -108,7 +103,7 @@ def delete_item(code):
     return redirect(url_for('raw_edit'))
 
 
-@app.route('/delete2/<int:code>', methods=["GET", "POST"])
+@app.route('/deleteuser/<int:code>', methods=["GET", "POST"])
 def delete_user(code):
     data_delete(code, userdata, 'user')
     return redirect(url_for('userlist'))

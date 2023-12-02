@@ -11,7 +11,7 @@ def data_read(assetdata):
 
 
 def data_update(assetdata, update_dict):
-    savebkfile(assetdata)
+    newsavebkfile(assetdata, 'asset')
     dl = data_read(assetdata)
     fieldnames = list(dl[0].keys())
 

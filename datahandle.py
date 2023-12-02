@@ -67,17 +67,6 @@ def username(userid, userinfo_csv):
     name = df.loc[filt, 'UserName'].to_list()[0]
     return name
 
-# UserID and Name
-def savebkfile(data):
-    tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    df = pd.read_csv(data, index_col=0)
-    df.to_csv('data/bk/'+tstamp+'.bk')
-
-def user_bkfile(data):
-    tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    df = pd.read_csv(data, index_col=0)
-    df.to_csv('data/bk/ud'+tstamp+'.bk')
-
 #edit page default autofill
 def code_data_dic(code, assetdata):
     df = pd.read_csv(assetdata, index_col=0)
@@ -94,10 +83,11 @@ def code_data_dic(code, assetdata):
 def data_delete(code, data, ack):
     df = pd.read_csv(data, index_col=0)
     df3 = df.drop(code)
-    if ack == 'asset':
-        savebkfile(data)
-    elif ack == 'user':
-        user_bkfile(data)
+    newsavebkfile(data, ack)
+    # if ack == 'asset':
+    #     savebkfile(data)
+    # elif ack == 'user':
+    #     user_bkfile(data)
     df3.to_csv(data)
 
 
@@ -109,7 +99,8 @@ def adduser(id, name, userdata):
     new['email'] = [new['UserID'][0]+'@ultiumcam.net']
     df2 = pd.DataFrame.from_dict(new)
     df3 = pd.concat([df, df2], ignore_index=True)
-    user_bkfile(userdata)
+    newsavebkfile(userdata, 'user')
+    # user_bkfile(userdata)
     df3.to_csv(userdata)
 
 
@@ -173,6 +164,7 @@ def zipfiles(target):
     stream.seek(0)
     return stream
 
+# delete specific folder's all files (not used)
 def cleanupfolder(path):
     for filename in os.listdir(path):
         file_path = os.path.join(path, filename)
@@ -183,3 +175,41 @@ def cleanupfolder(path):
                 shutil.rmtree(file_path)
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+# delete file if bk files over than certain amount
+def cleanupfolder(path, index:int):
+    files = os.listdir(path)
+    numlen = len(files)
+    while numlen >= index:
+        del_file = os.path.join(path, files[0])
+        os.unlink(del_file)
+        files = os.listdir(path)
+        numlen = len(files)
+
+# Old version autobackup
+'''
+def savebkfile(data):
+    tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    df = pd.read_csv(data, index_col=0)
+    file_path = 'data/bk/items/as'
+    df.to_csv(file_path+tstamp+'.bk')
+
+def user_bkfile(data):
+    tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    df = pd.read_csv(data, index_col=0)
+    file_path = 'data/bk/user/ud'
+    df.to_csv(file_path+tstamp+'.bk')
+'''
+
+#Data auto backup new
+def newsavebkfile(data, ack):
+    tstamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    df = pd.read_csv(data, index_col=0)
+    if ack == 'asset':
+        file_path = 'data/bk/items/'
+        prefix = 'as'
+    elif ack == 'user':
+        file_path = 'data/bk/user/'
+        prefix = 'ud'
+    cleanupfolder(file_path, 100)
+    df.to_csv(file_path+prefix+tstamp+'.bk')
