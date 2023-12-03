@@ -73,7 +73,7 @@ def code_data_dic(code, assetdata):
     filt2 = (df.index == code)
     ab = df.loc[filt2].to_dict('records')[0]
     values = [x for x in ab.values()]
-    date_str = ab['Date']
+    date_str = ab['Date'][:10]
     date_format = '%Y-%m-%d'
     date_obj = datetime.datetime.strptime(date_str, date_format)
     values[1] = date_obj

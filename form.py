@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import (
+from wtforms import (HiddenField, 
                     StringField, SubmitField,
                     SelectField, DateField, FloatField
                     )
@@ -55,25 +55,22 @@ class AssetForm(FlaskForm):
 
 
 class EditForm(FlaskForm):
-    a_code= StringField(
+    a_code= HiddenField(
         "AssetCode", validators=[DataRequired()]
         )
-    date = DateField('Date', validators=[DataRequired()])
-    a_type = SelectField(
-        "AcquisitionType", choices=[x for x in a_choices.values()],
-        validators=[DataRequired()]
+    date = HiddenField(
+        "Date", validators=[DataRequired()])
+    a_type = HiddenField(
+        "AcquisitionType", validators=[DataRequired()]
         )
-    d_type = SelectField( 
-        "DeviceType", choices=[x for x in d_choices.values()],
-        validators=[DataRequired()]
+    d_type = HiddenField( 
+        "DeviceType", validators=[DataRequired()]
         )
-    a_loca = SelectField(
-        "AcquisitionLocation", choices=[x for x in a_loca.values()],
-        validators=[DataRequired()]
+    a_loca = HiddenField(
+        "AcquisitionLocation", validators=[DataRequired()]
         )
-    manufac = SelectField(
-        "Manufacturer", choices=[x for x in m_choices.values()],
-        validators=[DataRequired()]
+    manufac = HiddenField(
+        "Manufacturer", validators=[DataRequired()]
         )
     sn = StringField(
         "SN", validators=[DataRequired()]

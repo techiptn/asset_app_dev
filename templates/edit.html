@@ -18,6 +18,14 @@
 <div class="container">
 
       <h3>Edit the information</h3>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+            {% for message in messages %}
+                  <p class="warning">{{ message }}</p>
+            {% endfor %}
+      {% endif %}
+      {% endwith %}
+      
       {{ wtf.quick_form(form, novalidate=True) }}
 
 </div>

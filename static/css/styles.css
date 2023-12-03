@@ -127,6 +127,10 @@ a {
   min-width: 30px;
 }
 
+.warning {
+  color: red;
+  font-size: large;
+}
 
 input[type=submit] {
   background-color: rgb(63, 190, 220);

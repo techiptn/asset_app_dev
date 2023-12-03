@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, send_file, request
+from flask import Flask, render_template, redirect, url_for, send_file, request,flash
 from flask_bootstrap import Bootstrap
 from form import AssetForm, EditForm, UserForm
 from csvcontrol import *
@@ -7,7 +7,8 @@ import pandas as pd
 # pd.set_option('display.precision', 2)
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWligakeiKKiekSihBXox7C0sKR6b'
+app.config.from_object('config.Config')
+# app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWligakeiKKiekSihBXox7C0sKR6b'
 Bootstrap(app)
 
 assetdata = 'data/test.csv'
@@ -42,7 +43,11 @@ def add_info():
             data_update(assetdata, valuedict)
             indextrim(assetdata)
             return redirect(url_for('showlist'))
-        return redirect(url_for('userid_error', userinfo = form.user.data))
+        flash(f'!? {form.user.data} is not existing in the user list, please check it again')
+        return redirect(url_for('userlist'))
+        # return redirect(url_for('userid_error', userinfo = form.user.data))
+    form.user.default = 'IT'
+    form.process()
     return render_template('add.html', form=form)
 
 
@@ -70,7 +75,9 @@ def edit_info(code):
             data_update(assetdata, valuedict)
             indextrim(assetdata)
             return redirect(url_for('showlist'))
-        return redirect(url_for('userid_error', userinfo = form.user.data))
+        flash(f'!? {form.user.data} is not existing in the user list, please check it again')
+        return redirect(url_for('userlist'))
+        # return redirect(url_for('userid_error', userinfo = form.user.data))
     values2 = code_data_dic(code, assetdata)
     form.a_code.default = values2[0]
     form.date.default = values2[1]
@@ -177,11 +184,11 @@ def useredit_info(code):
     form.process()
     return render_template('edit.html', form=form)
 
-
+'''
 @app.route('/error/<userinfo>')
 def userid_error(userinfo):
     return render_template('error.html', userinfo = userinfo)
-
+'''
 
 @app.route('/download')
 def downloadFile():

@@ -12,6 +12,15 @@
 
 <body>
   <h3 class="space">User information</h3>
+  
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+        {% for message in messages %}
+              <p class="container warning">{{ message }}</p>
+        {% endfor %}
+  {% endif %}
+  {% endwith %}
+
 <div class="container">
   <table class="mystyle table table-condensed">
     <tr>
