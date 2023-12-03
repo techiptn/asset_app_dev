@@ -1,6 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, send_file, request,flash
 from flask_bootstrap import Bootstrap
-from form import AssetForm, EditForm, UserForm
+from flask_login import login_user, UserMixin, LoginManager, login_required, current_user, logout_user
+from werkzeug.security import generate_password_hash, check_password_hash
+from form import AssetForm, EditForm, UserForm, LoginForm
+from config import users_db
 from csvcontrol import *
 from module import *
 import pandas as pd
@@ -10,18 +13,63 @@ app = Flask(__name__)
 app.config.from_object('config.Config')
 # app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWligakeiKKiekSihBXox7C0sKR6b'
 Bootstrap(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(userid):
+    return User(userid)
+
+class User(UserMixin):
+    def __init__(self, username):
+        self.id = username
+        self.password = users_db[username]
+        
+    def __repr__(self):
+        return "%s/%s" % ( self.id, self.password)
+    
+    def is_active(self):
+        return True
+
 
 assetdata = 'data/test.csv'
 userdata = 'data/userinfo2.csv'
 validdata = 'data/valid_only.csv'
 labelpath = 'data/label'
 
+
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        # ID doesn't exist
+        if not form.ID.data in [x for x in users_db.keys()]:
+            flash("ID does not exist, please try again.")
+            return redirect(url_for('login'))
+        user = User(form.ID.data)
+        password = form.password.data
+        # Password incorrect
+        if not check_password_hash(user.password, password):
+            flash("Password incorrect, please try again.")
+            return redirect(url_for('login'))
+        else:
+            login_user(user)
+            return redirect(url_for('home'))
+    return render_template("login.html", form=form, logged_in=current_user.is_authenticated)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home', logged_in=current_user.is_authenticated))
+
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html", logged_in=current_user.is_authenticated)
 
 
 @app.route('/add', methods=["GET", "POST"])
+@login_required
 def add_info():
     form = AssetForm()
     if form.validate_on_submit():
@@ -48,10 +96,11 @@ def add_info():
         # return redirect(url_for('userid_error', userinfo = form.user.data))
     form.user.default = 'IT'
     form.process()
-    return render_template('add.html', form=form)
+    return render_template('add.html', form=form, logged_in=current_user.is_authenticated)
 
 
 @app.route('/edit/<int:code>', methods=["GET", "POST"])
+@login_required
 def edit_info(code):
     form = EditForm()
     if form.validate_on_submit():
@@ -99,24 +148,28 @@ def edit_info(code):
 
 #Just for referance (Panda table veiwing)
 @app.route('/table')
+@login_required
 def pdtable():
     df = pd.read_csv(assetdata, index_col=0)
     return render_template('pdtable.html', tables=[df.to_html(classes='mystyle')], titles=df.columns.values)
 
 
 @app.route('/delete/<int:code>', methods=["GET", "POST"])
+@login_required
 def delete_item(code):
     data_delete(code, assetdata, 'asset')
     return redirect(url_for('raw_edit'))
 
 
 @app.route('/deleteuser/<int:code>', methods=["GET", "POST"])
+@login_required
 def delete_user(code):
     data_delete(code, userdata, 'user')
     return redirect(url_for('userlist'))
 
 
 @app.route('/assets')
+@login_required
 def showlist():
     list_1 = filter_list(assetdata)
     list_v = dp_convert(list_1)
@@ -125,6 +178,7 @@ def showlist():
 
 
 @app.route('/raw_edit')
+@login_required
 def raw_edit():
     df = pd.read_csv(assetdata, index_col=0)
     list_v = dp_convert(df)
@@ -133,6 +187,7 @@ def raw_edit():
 
 #Create Label
 @app.route('/checkbox', methods=["GET", "POST"])
+@login_required
 def checkbox():
     if request.method == 'POST' and len(request.form.getlist('selected')) > 0:
         cleanupfolder(labelpath)
@@ -151,6 +206,7 @@ def checkbox():
 
 #User info management
 @app.route('/user')
+@login_required
 def userlist():
     list_1 = pd.read_csv(userdata, index_col=0)
     list_v = dp_convert(list_1)
@@ -159,6 +215,7 @@ def userlist():
 
 
 @app.route('/user_add', methods=["GET", "POST"])
+@login_required
 def add_user():
     form = UserForm()
     if form.validate_on_submit():
@@ -170,6 +227,7 @@ def add_user():
 
 
 @app.route('/useredit/<int:code>', methods=["GET", "POST"])
+@login_required
 def useredit_info(code):
     form = UserForm()
     if form.validate_on_submit():
@@ -191,6 +249,7 @@ def userid_error(userinfo):
 '''
 
 @app.route('/download')
+@login_required
 def downloadFile():
     #For windows you need to use drive name [ex: F:/Example.pdf]
     rename = 'IT_asset_raw_'+datetime.datetime.now().strftime("%Y-%m-%d")+'.csv'
@@ -199,6 +258,7 @@ def downloadFile():
 
 
 @app.route('/valid_only')
+@login_required
 def valid_only():
     #For windows you need to use drive name [ex: F:/Example.pdf]
     rename = 'IT_asset_valid_only'+datetime.datetime.now().strftime("%Y-%m-%d")+'.csv'

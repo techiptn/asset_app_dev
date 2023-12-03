@@ -25,3 +25,11 @@ class Config:
     # AWS Secrets
     # AWS_SECRET_KEY = environ.get('AWS_SECRET_KEY')
     # AWS_KEY_ID = environ.get('AWS_KEY_ID')
+
+
+adminpass = environ.get("ADMIN_PASS")
+userpass = environ.get("USER_PASS")
+
+users_db = { 'admin': adminpass
+            ,'user': userpass
+}

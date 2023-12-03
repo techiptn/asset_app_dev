@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import (HiddenField, 
+from wtforms import (HiddenField, PasswordField,
                     StringField, SubmitField,
                     SelectField, DateField, FloatField
                     )
@@ -112,3 +112,9 @@ class UserForm(FlaskForm):
         "UserName", validators=[DataRequired()]
         )
     submit = SubmitField('Submit')
+
+
+class LoginForm(FlaskForm):
+    ID = StringField("User", validators=[DataRequired()])
+    password = PasswordField("Password", validators=[DataRequired()])
+    submit = SubmitField("Let me in!")
