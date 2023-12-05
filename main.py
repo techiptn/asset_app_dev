@@ -1,24 +1,28 @@
-from flask import Flask, render_template, redirect, url_for, send_file, request,flash
+from flask import Flask, render_template, redirect, url_for, send_file, request, flash, abort
 from flask_bootstrap import Bootstrap
 from flask_login import login_user, UserMixin, LoginManager, login_required, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from form import AssetForm, EditForm, UserForm, LoginForm
+from functools import wraps
 from config import users_db
 from csvcontrol import *
 from module import *
 import pandas as pd
 # pd.set_option('display.precision', 2)
 
+
 app = Flask(__name__)
 app.config.from_object('config.Config')
-# app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWligakeiKKiekSihBXox7C0sKR6b'
+# app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWligake7C0sKR6b'
 Bootstrap(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-@login_manager.user_loader
-def load_user(userid):
-    return User(userid)
+
+assetdata = 'data/test.csv'
+userdata = 'data/userinfo2.csv'
+validdata = 'data/valid_only.csv'
+labelpath = 'data/label'
 
 class User(UserMixin):
     def __init__(self, username):
@@ -32,11 +36,9 @@ class User(UserMixin):
         return True
 
 
-assetdata = 'data/test.csv'
-userdata = 'data/userinfo2.csv'
-validdata = 'data/valid_only.csv'
-labelpath = 'data/label'
-
+@login_manager.user_loader
+def load_user(userid):
+    return User(userid)
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
@@ -58,6 +60,15 @@ def login():
     return render_template("login.html", form=form, logged_in=current_user.is_authenticated)
 
 
+def admin_only(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if current_user.id != 'admin' or not current_user.is_authenticated:
+            return abort(403)
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 @app.route('/logout')
 def logout():
     logout_user()
@@ -70,6 +81,7 @@ def home():
 
 @app.route('/add', methods=["GET", "POST"])
 @login_required
+@admin_only
 def add_info():
     form = AssetForm()
     if form.validate_on_submit():
@@ -101,6 +113,7 @@ def add_info():
 
 @app.route('/edit/<int:code>', methods=["GET", "POST"])
 @login_required
+@admin_only
 def edit_info(code):
     form = EditForm()
     if form.validate_on_submit():
@@ -156,6 +169,7 @@ def pdtable():
 
 @app.route('/delete/<int:code>', methods=["GET", "POST"])
 @login_required
+@admin_only
 def delete_item(code):
     data_delete(code, assetdata, 'asset')
     return redirect(url_for('raw_edit'))
@@ -163,6 +177,7 @@ def delete_item(code):
 
 @app.route('/deleteuser/<int:code>', methods=["GET", "POST"])
 @login_required
+@admin_only
 def delete_user(code):
     data_delete(code, userdata, 'user')
     return redirect(url_for('userlist'))
@@ -179,6 +194,7 @@ def showlist():
 
 @app.route('/raw_edit')
 @login_required
+@admin_only
 def raw_edit():
     df = pd.read_csv(assetdata, index_col=0)
     list_v = dp_convert(df)
@@ -207,6 +223,7 @@ def checkbox():
 #User info management
 @app.route('/user')
 @login_required
+@admin_only
 def userlist():
     list_1 = pd.read_csv(userdata, index_col=0)
     list_v = dp_convert(list_1)
@@ -216,6 +233,7 @@ def userlist():
 
 @app.route('/user_add', methods=["GET", "POST"])
 @login_required
+@admin_only
 def add_user():
     form = UserForm()
     if form.validate_on_submit():
@@ -228,6 +246,7 @@ def add_user():
 
 @app.route('/useredit/<int:code>', methods=["GET", "POST"])
 @login_required
+@admin_only
 def useredit_info(code):
     form = UserForm()
     if form.validate_on_submit():
@@ -267,7 +286,6 @@ def valid_only():
     datapd2.to_csv(validdata)
     path = validdata
     return send_file(path, as_attachment=True, download_name= rename)
-
 
 if __name__ == '__main__':
     app.run(debug=True)

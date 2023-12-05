@@ -14,16 +14,20 @@
 <div class="container">
         <table class="mystyle">
           <tr>
+            {% if current_user.id == 'admin': %}
             <th>Edit</th>
+            {% endif %}
             {% for item in col %}
             <th>{{item}}</th>
             {% endfor %}
           </tr>
             {% for row in assets %}
           <tr>
+              {% if current_user.id == 'admin': %}
                 <td>
                   <a class="button" href="{{ url_for('edit_info', code=row[0]) }}" role="button">Edit</a>
                 </td>
+              {% endif %}
               {% for item in row %}
                 <td>{{ item }}</td>
               {% endfor %}
@@ -32,10 +36,16 @@
         </table>
       </div>
       <p class="space">
-        <a class="btn btn-link btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
-        <a class="btn btn-link btn-lg" href="{{ url_for('add_info') }}" role="button">Add an Item</a>
-        <a class="btn btn-link btn-lg" href="{{ url_for('checkbox') }}" role="button">Create Labels</a>
-        <a class="btn btn-link btn-lg" href="{{ url_for('raw_edit') }}" role="button">Show Raw data</a>
-        <a class="btn btn-link btn-lg" href="{{ url_for('valid_only') }}" role="button">Download</a>
+        {% if current_user.id == 'admin': %}
+          <a class="btn btn-link btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
+          <a class="btn btn-link btn-lg" href="{{ url_for('add_info') }}" role="button">Add an Item</a>
+          <a class="btn btn-link btn-lg" href="{{ url_for('checkbox') }}" role="button">Create Labels</a>
+          <a class="btn btn-link btn-lg" href="{{ url_for('raw_edit') }}" role="button">Show Raw data</a>
+          <a class="btn btn-link btn-lg" href="{{ url_for('valid_only') }}" role="button">Download</a>
+        {% else: %}
+          <a class="btn btn-link btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
+          <a class="btn btn-link btn-lg" href="{{ url_for('checkbox') }}" role="button">Create Labels</a>
+          <a class="btn btn-link btn-lg" href="{{ url_for('valid_only') }}" role="button">Download</a>
+        {% endif %}   
       </p>
 </body>

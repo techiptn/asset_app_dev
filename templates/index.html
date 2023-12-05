@@ -18,16 +18,23 @@
     <div class="container">
   <h1> IT Inventory </h1>
   <p>Keep tracking all IT Equiptment.</p>
+  <!-- <p>{{current_user.id}}</p> -->
+  
+
   </div>
 
 
   <div class="space">
   {% if logged_in: %}
-    <a class="button button-lg" href="{{ url_for('showlist') }}" role="button">Show the List</a>
-    <!-- <a class="btn-info btn-lg" href="{{ url_for('pdtable') }}" role="button">Table Raw List</a> -->
-    <a class="button button-lg" href="{{ url_for('add_info') }}" role="button">Add Items</a>
-    <a class="button button-lg" href="{{ url_for('userlist') }}" role="button">User List</a>
-    <a class="button button-lg" href="{{ url_for('logout') }}" role="button">Log out</a>
+    {% if current_user.id == 'admin': %}
+      <a class="button button-lg" href="{{ url_for('showlist') }}" role="button">Show the List</a>
+      <a class="button button-lg" href="{{ url_for('add_info') }}" role="button">Add Items</a>
+      <a class="button button-lg" href="{{ url_for('userlist') }}" role="button">User List</a>
+      <a class="button button-lg" href="{{ url_for('logout') }}" role="button">Log out</a>
+    {% else: %}
+      <a class="button button-lg" href="{{ url_for('showlist') }}" role="button">Show the List</a>
+      <a class="button button-lg" href="{{ url_for('logout') }}" role="button">Log out</a>
+    {% endif %}
   {% else: %}
     <a class="button button-lg" href="{{ url_for('login') }}" role="button">Log in</a>
   {% endif %}   
