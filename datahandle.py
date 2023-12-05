@@ -164,7 +164,7 @@ def zipfiles(target):
     stream.seek(0)
     return stream
 
-# delete specific folder's all files (not used)
+# delete specific folder's all files (before downloading a label)
 def cleanupfolder(path):
     for filename in os.listdir(path):
         file_path = os.path.join(path, filename)
@@ -177,7 +177,7 @@ def cleanupfolder(path):
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 # delete file if bk files over than certain amount
-def cleanupfolder(path, index:int):
+def cleanupfolder2(path, index:int):
     files = os.listdir(path)
     numlen = len(files)
     while numlen >= index:
@@ -211,5 +211,5 @@ def newsavebkfile(data, ack):
     elif ack == 'user':
         file_path = 'data/bk/user/'
         prefix = 'ud'
-    cleanupfolder(file_path, 100)
+    cleanupfolder2(file_path, 100)
     df.to_csv(file_path+prefix+tstamp+'.bk')
