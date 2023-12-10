@@ -13,14 +13,13 @@ import pandas as pd
 
 app = Flask(__name__)
 app.config.from_object('config.Config')
-# app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWligake7C0sKR6b'
 Bootstrap(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
 
-assetdata = 'data/test.csv'
-userdata = 'data/userinfo2.csv'
+assetdata = 'data/asset.csv'
+userdata = 'data/userinfo.csv'
 validdata = 'data/valid_only.csv'
 labelpath = 'data/label'
 
