@@ -238,7 +238,8 @@ def add_user():
     if form.validate_on_submit():
         id = form.userid.data
         name = form.username.data
-        adduser(id, name, userdata)
+        dep = form.dep.data
+        adduser(id, name, dep, userdata)
         return redirect(url_for('userlist'))
     return render_template('adduser.html', form=form)
 
@@ -251,12 +252,14 @@ def useredit_info(code):
     if form.validate_on_submit():
         id = form.userid.data
         name = form.username.data
+        dep = form.dep.data
         data_delete(code, userdata, 'user')
-        adduser(id, name, userdata)
+        adduser(id, name, dep, userdata)
         return redirect(url_for('userlist'))
     values2 = code_user(code, userdata)
     form.userid.default = values2[0]
     form.username.default = values2[1]
+    form.dep.default = values2[2]
     form.process()
     return render_template('edit.html', form=form)
 

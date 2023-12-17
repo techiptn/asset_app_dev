@@ -1,0 +1,6 @@
+,AssetCode,Date,AcquisitionType,DeviceType,AcquisitionLocation,Manufacturer,SN,PurchasePrice(+Tx),AcquisitionValue(CAD),Tax,UserID,UserName,CurrentLocation,Com1,Com2,Status,Updated
+0,PPTS238001,2023-08-22,Purchase,Printer,Trois-Rivières,Samsung,yesitssamsung,3440.1,3425.55,14.55,천성현,SUNGHYUN CHUN,Trois-Rivières,,,1.0,2023-11-05 07:59:27.907441
+1,PWTT23C001,2023-12-12,Purchase,NW Device,Trois-Rivières,TP-Link,sreianublesleepy,6334.82,5852.52,482.3,ㅊㅊㅊ,SUNGHYUN CHUN3,Bécancour,추가테스트,ㅎㅎ,1.0,2023-11-23 22:00:44.633225
+2,PCTM238001,2023-08-08,Purchase,Camera,Trois-Rivières,MeetingOwl,veryverylonglongNBs,1769.32,1499.99,269.33,ㅊㅊㅊ,SUNGHYUN CHUN3,Montréal,하하하,충충충충충카카카카,1.0,2023-11-24 14:54:47.372397
+3,PDMD23C001,2023-12-18,Purchase,Desktop,Montréal,Dell,basic,1525.86,1499.99,25.87,ㅁㅁㅁ,SUNGHYUN CHUN2,Montréal,테스트,테스트코멘트하하하,1.0,2023-11-24 19:42:31.350349
+5,PDMD23B001,2023-11-15,Purchase,Desktop,Montréal,Dell,asdl;fjasdlkfj;asldkf,569.37,558.87,10.5,ㅁㅁㅁ,SUNGHYUN CHUN2,Montréal,,,1.0,2023-11-27 00:25:13.095461

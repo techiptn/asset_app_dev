@@ -8,7 +8,7 @@ path = os.getcwd()
 # Mac font
 font = ImageFont.truetype('Arial.ttf', 50)
 font2 = ImageFont.truetype('Arial.ttf', 50)
-font3 = ImageFont.truetype('Arial Bold.ttf', 70)
+font3 = ImageFont.truetype('Arial.ttf', 70)
 
 # ultiumCAM color
 color1 = (0, 114, 206)
@@ -44,7 +44,8 @@ def qr_gen(acode, date, sn, user):
     # asset code & date & User
     draw.text((313, 368), 'DATE :', color1, font=font2)
     draw.text((313, 431), 'CODE :', color1, font=font2)
-    draw.text((313, 493), 'NOM / NAME :', color1, font=font2)
+    # draw.text((313, 493), 'NOM / NAME:', color1, font=font2)
+    draw.text((313, 493), 'UTILISATEUR / USER :', color1, font=font2)
     draw.text((525, 368), f'{date}', color1, font=font2)
     draw.text((525, 431), f'{acode}', color1, font=font2)
     draw.text((313, 545), f'{user}', color1, font=font2)

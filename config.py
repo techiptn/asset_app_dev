@@ -27,15 +27,19 @@ class Config:
     # AWS_KEY_ID = environ.get('AWS_KEY_ID')
 
 
-'''passw = 'testpassword123'
+'''
+from werkzeug.security import generate_password_hash
+passw = 'testpassword123'
 encrypwkey=generate_password_hash(passw,
                     method='pbkdf2:sha256',
-                    salt_length=8
-                    )'''
+                    salt_length=8)
+'''
 
 adminpass = environ.get("ADMIN_PASS")
+
 userpass = environ.get("USER_PASS")
 
+# userID of admin should be 'admin' Don't change admin ID
 users_db = { 'admin': adminpass
             ,'user': userpass
 }

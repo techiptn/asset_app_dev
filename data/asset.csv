@@ -1,0 +1,23 @@
+,AssetCode,Date,AcquisitionType,DeviceType,AcquisitionLocation,Manufacturer,SN,PurchasePrice(+Tx),AcquisitionValue(CAD),Tax,UserID,UserName,CurrentLocation,Com1,Com2,Status,Updated
+0,PPTS238001,2023-08-22,Purchase,Printer,Trois-Rivières,Samsung,yesitssamsung,3440.1,3425.55,14.55,천성현,SUNGHYUN CHUN,Trois-Rivières,,,1.0,2023-11-05 07:59:27.907441
+1,PWTT23C001,2023-12-12,Purchase,NW Device,Trois-Rivières,TP-Link,sreianublesleepy,6334.82,5852.52,482.3,ㅊㅊㅊ,SUNGHYUN CHUN3,Bécancour,추가테스트,ㅎㅎ,1.0,2023-11-23 22:00:44.633225
+3,PDMD23B001,2023-11-15,Purchase,Desktop,Montréal,Dell,asdl;fjasdlkfj;asldkf,569.37,558.87,10.5,ㅁㅁㅁ,SUNGHYUN CHUN2,Montréal,,,1.0,2023-11-27 00:25:13.095461
+4,PDMD23B001,2023-11-15,Purchase,Desktop,Montréal,Dell,asdl;fjasdlkfj;as,569.37,558.87,10.5,ㅁㅁㅁ,SUNGHYUN CHUN2222,Montréal,,,1.0,2023-12-02 15:22:56.128861
+5,PWTT23C001,2023-12-12,Purchase,NW Device,Trois-Rivières,TP-Link,sreianublesleepy,6334.82,5852.52,482.3,ㅊㅊㅊ,SUNGHYUN CHUN333,Bécancour,추가테스트,ㅎㅎㅎㅎㅎ,1.0,2023-12-02 15:23:06.442935
+6,LPTC23C001,2023-12-02,Lease,Printer,Trois-Rivières,Canon,Whatacoinstant,59829.52,59340.0,489.52,ㅁㅁㅁ,SUNGHYUN CHUN2222,Montréal,,,0.0,2023-12-02 15:23:21.022411
+7,PWTT23C001,2023-12-12,Purchase,NW Device,Trois-Rivières,TP-Link,뫃ㄱ,6334.82,5852.52,482.3,ㅊㅊㅊ,SUNGHYUN CHUN333,Bécancour,추가테스트,ㅎㅎㅎㅎㅎ,1.0,2023-12-02 15:24:08.763490
+9,PDMD23C001,2023-12-08,Purchase,Desktop,Montréal,Samsung,ㅁgㄴㅎㅁㅎ23,5208.0,4465.0,743.0,ㅊㅊㅊ,SUNGHYUN CHUN333,Montréal,,,1.0,2023-12-02 15:44:04.395100
+10,PDMU23C001,2023-12-20,Purchase,Desktop,Montréal,ASUS,ㅁㅁㅁㅁㅁㅇㅇㅇ,448.0,426.0,22.0,ㅊㅊㅊ,SUNGHYUN CHUN333,Montréal,nangadg,,1.0,2023-12-02 15:44:09.832058
+11,PDTT23C001,2023-12-02,Purchase,Desktop,Trois-Rivières,TP-Link,aaadeg,652.0,565.0,87.0,test1,testuser1,Bécancour,,,1.0,2023-12-02 15:44:33.912621
+12,PDMD23B001,2023-11-15,Purchase,Desktop,Montréal,APPLE,asdl;fjasdlkfj;as,569.37,558.87,10.5,ㅁㅁㅁ,SUNGHYUN CHU,Montréal,,test,1.0,2023-12-02 15:55:38.536585
+13,PDMU23C001,2023-12-20,Purchase,Desktop,Montréal,ASUS,ㅁㅁㅁㅁㅁㅇㅇㅇ,448.0,426.0,22.0,ㅊㅊㅊ,SUNGHYUN,Montréal,dddd,,1.0,2023-12-02 15:56:50.672717
+14,PDTD23C001,2023-12-20,Purchase,Desktop,Trois-Rivières,Dell,agsdfgasdg,576.0,344.0,232.0,test3,testuser3,Trois-Rivières,agh,,1.0,2023-12-02 15:57:25.319087
+15,LDMD23C001,2023-12-02,Lease,Desktop,Montréal,Dell,aaaaadfdf,446.0,423.0,23.0,test1,testuser1,Montréal,,,1.0,2023-12-02 19:04:17.999390
+16,PDMD23B001,2023-11-15,Purchase,Desktop,Montréal,APPLE,DADSFASD,569.37,558.87,10.5,ㅁㅁㅁ,SUNGHYUN CHU,Montréal,,test,1.0,2023-12-02 19:15:01.434268
+17,PDMD23B001,2023-11-15 00:00:00,Purchase,Desktop,Montréal,APPLE,DADSFASD,569.37,558.87,10.5,ㅁㅁㅁ,SUNGHYUN CHU,Montréal,,test,1.0,2023-12-02 19:35:10.921443
+18,PDMD23B004,2023-11-22 00:00:00,Purchase,Desktop,Montréal,Dell,1234,55555.5,550.5,15.0,test3,testuser3,Bécancour,,,1.0,2023-12-02 19:35:20.772402
+19,PDMD23B001,2023-11-15 00:00:00,Purchase,Desktop,Montréal,APPLE,DADSFASD,569.37,55.0,10.5,ㅁㅁㅁ,SUNGHYUN CHU,Montréal,,test,1.0,2023-12-02 19:37:03.638276
+21,PDMD23B001,2023-11-15 00:00:00,Purchase,Desktop,Montréal,APPLE,DADSFASD,569.37,55.0,10.5,ㅁㅁㅁ,SUNGHYUN CHU,Montréal,,test,1.0,2023-12-02 23:59:13.728574
+22,PPTS238001,2023-08-22 00:00:00,Purchase,Printer,Trois-Rivières,Samsung,yesitssamsung,3440.1,3425.55,14.55,it,IT_inventory,Trois-Rivières,,,1.0,2023-12-03 00:45:46.718358
+23,PDMD23C003,2023-12-05,Purchase,Desktop,Montréal,Dell,asdf,58888.0,55555.0,3333.0,it,IT_inventory,Montréal,,,1.0,2023-12-03 00:47:44.697989
+24,LSBA23C001,2023-12-13 00:00:00,Lease,Smartphone,Bécancour,APPLE,applebig,2021.0,1500.0,521.0,test1,testuser1,Montréal,,,1.0,2023-12-03 00:49:10.893481

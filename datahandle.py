@@ -92,10 +92,12 @@ def data_delete(code, data, ack):
 
 
 #Add user info
-def adduser(id, name, userdata):
+def adduser(id, name, dep, userdata):
     df = pd.read_csv(userdata, index_col=0)
     new = {'UserID':[id],
-        'UserName':[name]}
+        'UserName':[name],
+        'Dep.':[dep]
+        }
     new['email'] = [new['UserID'][0]+'@ultiumcam.net']
     df2 = pd.DataFrame.from_dict(new)
     df3 = pd.concat([df, df2], ignore_index=True)

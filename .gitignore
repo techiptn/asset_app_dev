@@ -1,4 +1,7 @@
-data/*
+# data/*.*
 /__*
-/static/label/*
+data/label/*
+data/bk/items/*
+data/bk/user/*
+.*
 # *.pdf
