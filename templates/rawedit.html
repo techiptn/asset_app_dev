@@ -1,17 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'bootstrap/base.html' %}
 
-<head>
-  <meta charset="utf-8">
-  <title>Edit or Delete the data</title>
+{% import "bootstrap/wtf.html" as wtf %}
 
-<link href="{{url_for('.static', filename='css/styles.css')}}" rel="stylesheet"> 
+{% block title %}Raw data list{% endblock %}
+
+{% block styles %}
+
+{{super()}}
+
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='css/styles.css')}}">
 <link rel="icon" type="image/x-icon" href="static/img/favicon.ico">
-</head>
+{% endblock %}
 
-
-<body>
-  <h3 class="space">All Inventory Records</h3>
+{% block content %}
+  <div class="container1">
+    <a class="btn btn-lg" href="{{ url_for('showlist') }}" role="button">Back to the List</a>
+    <a class="btn btn-lg" href="{{ url_for('add_info') }}" role="button">Add an Item</a>
+    <a class="btn btn-lg" href="{{ url_for('downloadFile') }}" role="button">Download</a>
+    <h3 class="space">All Inventory Records</h3>
+  </div> 
 <div class="container">
   <table class="mystyle table table-condensed">
     <tr>
@@ -36,10 +44,5 @@
     {% endfor %}
   </table>
 </div>
-<p class="space">
-  <a class="btn btn-link btn-lg" href="{{ url_for('showlist') }}" role="button">Back to the List</a>
-  <a class="btn btn-link btn-lg" href="{{ url_for('add_info') }}" role="button">Add an Item</a>
-  <a class="btn btn-link btn-lg" href="{{ url_for('downloadFile') }}" role="button">Download</a>
-</p>
 
-</body>
+{% endblock %}

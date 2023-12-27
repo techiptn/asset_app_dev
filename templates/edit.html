@@ -15,9 +15,13 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-
+<div class="container1">
+      <a class="btn btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
+      <a class="btn btn-lg" href="{{ url_for('showlist') }}" role="button">Asset List</a>
+      <a class="btn btn-lg" href="{{ url_for('userlist') }}" role="button">User List</a>
       <h3>Edit the information</h3>
+</div>
+<div class="container">
       {% with messages = get_flashed_messages() %}
       {% if messages %}
             {% for message in messages %}
@@ -27,12 +31,6 @@
       {% endwith %}
       
       {{ wtf.quick_form(form, novalidate=True) }}
-
 </div>
-      <p class="space">
-            <a class="btn btn-link btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
-            <a class="btn btn-link btn-lg" href="{{ url_for('showlist') }}" role="button">Asset List</a>
-            <a class="btn btn-link btn-lg" href="{{ url_for('userlist') }}" role="button">User List</a>
-      </p>
 
 {% endblock %}

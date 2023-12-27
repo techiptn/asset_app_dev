@@ -1,43 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <title>Home</title>
+{% extends 'bootstrap/base.html' %}
 
-<link href="{{url_for('.static', filename='css/styles.css')}}" rel="stylesheet"> 
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Home{% endblock %}
+
+{% block styles %}
+
+{{super()}}
+
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='css/styles.css')}}">
 <link rel="icon" type="image/x-icon" href="static/img/favicon.ico">
+{% endblock %}
 
-</head>
-<div class="container-center">
-<img src="../static/img/logo.png" width=20%></img>
-</div>
-
-<body>
+{% block content %}
 <div class="jumbotron">
-    <div class="container">
+  <img src="../static/img/logo.png" width=30%></img>
   <h1> IT Inventory </h1>
   <p>Keep tracking all IT Equiptment.</p>
   <!-- <p>{{current_user.id}}</p> -->
-  
 
-  </div>
-
-
-  <div class="space">
   {% if logged_in: %}
     {% if current_user.id == 'admin': %}
-      <a class="button button-lg" href="{{ url_for('showlist') }}" role="button">Show the List</a>
-      <a class="button button-lg" href="{{ url_for('add_info') }}" role="button">Add Items</a>
-      <a class="button button-lg" href="{{ url_for('userlist') }}" role="button">User List</a>
-      <a class="button button-lg" href="{{ url_for('logout') }}" role="button">Log out</a>
+    <div class="d-grid gap-2 d-md-block">
+      <a class="btn btn-cam" href="{{ url_for('showlist') }}" role="button">Show the List</a>
+      <a class="btn btn-cam" href="{{ url_for('add_info') }}" role="button">Add Items</a>
+      <a class="btn btn-cam" href="{{ url_for('userlist') }}" role="button">User List</a>
+      <a class="btn btn-cam" href="{{ url_for('logout') }}" role="button">Log out</a>
+    </div>
     {% else: %}
-      <a class="button button-lg" href="{{ url_for('showlist') }}" role="button">Show the List</a>
-      <a class="button button-lg" href="{{ url_for('logout') }}" role="button">Log out</a>
+      <a class="btn btn-cam" href="{{ url_for('showlist') }}" role="button">Show the List</a>
+      <a class="btn btn-cam" href="{{ url_for('logout') }}" role="button">Log out</a>
     {% endif %}
   {% else: %}
-    <a class="button button-lg" href="{{ url_for('login') }}" role="button">Log in</a>
+    <a class="btn btn-cam" href="{{ url_for('login') }}" role="button">Log in</a>
   {% endif %}   
   </div>
-</div>
-</body>
+{% endblock %}

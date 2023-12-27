@@ -76,7 +76,7 @@ def code_data_dic(code, assetdata):
     date_str = ab['Date'][:10]
     date_format = '%Y-%m-%d'
     date_obj = datetime.datetime.strptime(date_str, date_format)
-    values[1] = date_obj
+    values[1] = date_obj.date()
     return values
 
 #Delete values
@@ -92,11 +92,12 @@ def data_delete(code, data, ack):
 
 
 #Add user info
-def adduser(id, name, dep, userdata):
+def adduser(id, name, dep, emno, userdata):
     df = pd.read_csv(userdata, index_col=0)
     new = {'UserID':[id],
         'UserName':[name],
-        'Dep.':[dep]
+        'Dep.':[dep],
+        'EmNo':[emno]
         }
     new['email'] = [new['UserID'][0]+'@ultiumcam.net']
     df2 = pd.DataFrame.from_dict(new)

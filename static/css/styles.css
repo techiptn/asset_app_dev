@@ -6,13 +6,19 @@ font-family: Arial, Helvetica, sans-serif;
 }
 
 h1 {
-  font-size: 45pt;
+  font-size: xxx-large;
+  margin: 20px;
 }
 
-
-a {
+/* a {
   color: rgb(40, 113, 215);
   margin: 10px;
+} */
+
+.btn-cam{
+  color: #fff;
+  background-color: rgb(63, 190, 220);
+  margin: 5px;
 }
 
 .button{
@@ -31,8 +37,14 @@ a {
 }
 
 .button-lg{
+  position: relative;
   border-radius: 20%;
-  font-size: large;
+  /* font-size: large; */
+}
+
+
+.btn-lg{
+  margin: 0px 10px 15px 0px;
 }
 
 
@@ -54,15 +66,20 @@ a {
 
 .container {
   position: relative;
+  max-height: 45em;
   margin: 10px 20px 0px 20px;
   overflow: scroll;
+  color:rgb(63, 190, 220);
+}
+
+.container1 {
+  position: relative;
+  margin: 30px 0px 10px 30px;
 }
 
 .container-center {
-  width: 100%;
-  margin-top: 20px;
-  text-align: center;
-  align-items: center;
+  width: 50%;
+  margin: auto;
 }
 
 .body2 {
@@ -75,7 +92,6 @@ a {
   width: 50%;
   margin: auto;
   text-align: center;
-  align-items: center;
   color: rgb(40, 113, 215);
   background-color:  rgb(255,255,255);
 }
@@ -95,6 +111,7 @@ a {
 /* Pandans table :includes alternating gray and white with on-hover color*/
 
 .mystyle {
+  color:black;
   font-size: 10pt; 
   font-family: Arial;
   border-collapse: collapse; 
@@ -106,6 +123,7 @@ a {
 .mystyle th {
   background-color:  rgb(40, 113, 215);
   color: aliceblue;
+  text-align: center;
 }
 
 .mystyle tr {
@@ -123,7 +141,6 @@ a {
 
 .mystyle td {
   padding: 5px 30px;
-  text-align: left;
   min-width: 30px;
 }
 

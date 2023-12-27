@@ -14,18 +14,14 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container1">
+      <a class="btn btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
+      <a class="btn btn-lg" href="{{ url_for('userlist') }}" role="button">Back to the List</a>
       <h3>Add a new User into the database</h3>
-      <!-- This is where your WTForm will go -->
-      <p class="space">
-      {{ wtf.quick_form(form, novalidate=True) }}
-      </p> 
 </div>
-
-
-<p class="space">
-      <a class="btn btn-link btn-lg" href="{{ url_for('home') }}" role="button">Return to Main</a>
-      <a class="btn btn-link btn-lg" href="{{ url_for('userlist') }}" role="button">Back to the List</a>
-</p>
+      <!-- This is where your WTForm will go -->
+      <div class="container">
+      {{ wtf.quick_form(form, novalidate=True) }}
+      </div>
 
 {% endblock %}

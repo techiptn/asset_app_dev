@@ -111,6 +111,9 @@ class UserForm(FlaskForm):
     username = StringField(
         "UserName", validators=[DataRequired()]
         )
+    emno = FloatField(
+        "Employee Number", validators=[DataRequired()]
+        )
     dep = StringField(
         "Department"
         )

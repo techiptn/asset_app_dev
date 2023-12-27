@@ -8,6 +8,7 @@ from config import users_db
 from csvcontrol import *
 from module import *
 import pandas as pd
+from openpyxl.workbook import Workbook
 # pd.set_option('display.precision', 2)
 
 
@@ -20,8 +21,9 @@ login_manager.init_app(app)
 
 assetdata = 'data/asset.csv'
 userdata = 'data/userinfo.csv'
-validdata = 'data/valid_only.csv'
+# validdata = 'data/valid_only.csv'
 labelpath = 'data/label'
+downExcelfile = 'data/downexcel.xlsx'
 
 class User(UserMixin):
     def __init__(self, username):
@@ -102,7 +104,7 @@ def add_info():
             data_update(assetdata, valuedict)
             indextrim(assetdata)
             return redirect(url_for('showlist'))
-        flash(f'!? {form.user.data} is not existing in the user list, please check it again')
+        flash(f'!!! {form.user.data} is not existing in the user list, please check it again')
         return redirect(url_for('userlist'))
         # return redirect(url_for('userid_error', userinfo = form.user.data))
     form.user.default = 'IT'
@@ -136,7 +138,7 @@ def edit_info(code):
             data_update(assetdata, valuedict)
             indextrim(assetdata)
             return redirect(url_for('showlist'))
-        flash(f'!? {form.user.data} is not existing in the user list, please check it again')
+        flash(f'!!! {form.user.data} is not existing in the user list, please check it again')
         return redirect(url_for('userlist'))
         # return redirect(url_for('userid_error', userinfo = form.user.data))
     values2 = code_data_dic(code, assetdata)
@@ -225,6 +227,7 @@ def checkbox():
 @admin_only
 def userlist():
     list_1 = pd.read_csv(userdata, index_col=0)
+    list_1['EmNo'] = list_1['EmNo'].round(0).astype(int)
     list_v = dp_convert(list_1)
     return render_template(
         'userlist.html', col=list_v[0], assets=list_v[1], n = 0)
@@ -239,7 +242,8 @@ def add_user():
         id = form.userid.data
         name = form.username.data
         dep = form.dep.data
-        adduser(id, name, dep, userdata)
+        emno = form.emno.data
+        adduser(id, name, dep, emno, userdata)
         return redirect(url_for('userlist'))
     return render_template('adduser.html', form=form)
 
@@ -253,13 +257,15 @@ def useredit_info(code):
         id = form.userid.data
         name = form.username.data
         dep = form.dep.data
+        emno = form.emno.data
         data_delete(code, userdata, 'user')
-        adduser(id, name, dep, userdata)
+        adduser(id, name, dep, emno, userdata)
         return redirect(url_for('userlist'))
     values2 = code_user(code, userdata)
     form.userid.default = values2[0]
     form.username.default = values2[1]
     form.dep.default = values2[2]
+    form.emno.default = values2[3]
     form.process()
     return render_template('edit.html', form=form)
 
@@ -273,8 +279,12 @@ def userid_error(userinfo):
 @login_required
 def downloadFile():
     #For windows you need to use drive name [ex: F:/Example.pdf]
-    rename = 'IT_asset_raw_'+datetime.datetime.now().strftime("%Y-%m-%d")+'.csv'
-    path = assetdata
+    # rename = 'IT_asset_raw_'+datetime.datetime.now().strftime("%Y-%m-%d")+'.csv'
+    rename = 'IT_asset_raw_'+datetime.datetime.now().strftime("%Y-%m-%d")+'.xlsx'
+    # path = assetdata
+    convert = pd.read_csv(assetdata, index_col=0)
+    convert.to_excel(downExcelfile)
+    path = downExcelfile
     return send_file(path, as_attachment=True, download_name=rename)
 
 
@@ -282,13 +292,29 @@ def downloadFile():
 @login_required
 def valid_only():
     #For windows you need to use drive name [ex: F:/Example.pdf]
-    rename = 'IT_asset_valid_only'+datetime.datetime.now().strftime("%Y-%m-%d")+'.csv'
+    # rename = 'IT_asset_valid_only'+datetime.datetime.now().strftime("%Y-%m-%d")+'.csv'
+    rename = 'IT_asset_valid_only'+datetime.datetime.now().strftime("%Y-%m-%d")+'.xlsx'
     datapd = filter_list(assetdata)
     datapd2 = datapd.loc[:, ~datapd.columns.str.contains('^Unnamed')]
-    datapd2.to_csv(validdata)
-    path = validdata
+    # datapd2.to_csv(validdata)
+    datapd2.to_excel(downExcelfile)
+    path = downExcelfile
     return send_file(path, as_attachment=True, download_name= rename)
 
+
+@app.route('/userinfodown')
+@login_required
+def userdown():
+    #For windows you need to use drive name [ex: F:/Example.pdf]
+    # rename = 'IT_asset_raw_'+datetime.datetime.now().strftime("%Y-%m-%d")+'.csv'
+    rename = 'IT_userinfo_'+datetime.datetime.now().strftime("%Y-%m-%d")+'.xlsx'
+    # path = assetdata
+    convert = pd.read_csv(userdata, index_col=0)
+    convert.to_excel(downExcelfile)
+    path = downExcelfile
+    return send_file(path, as_attachment=True, download_name=rename)
+
+
 if __name__ == '__main__':
-    # app.run(debug=True)
-    app.run(host='0.0.0.0', port=5000, debug=os.environ.get('DEBUG') == '1')
+    app.run(debug=True)
+    # app.run()

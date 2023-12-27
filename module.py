@@ -6,6 +6,9 @@ import csv
 path = os.getcwd()
 
 # Mac font
+# font = ImageFont.truetype('~.local/share/font/Arial.TTF', 50)
+# font2 = ImageFont.truetype('~.local/share/font/Arial.TTF', 50)
+# font3 = ImageFont.truetype('~.local/share/font/Arial.TTF', 70)
 font = ImageFont.truetype('Arial.ttf', 50)
 font2 = ImageFont.truetype('Arial.ttf', 50)
 font3 = ImageFont.truetype('Arial.ttf', 70)
@@ -25,18 +28,18 @@ logore = logoimg.resize(size=(1100, 236))
 
 # Back ground / inch (label 4'X 2' , 2 = 600px, 4 = 1200px /
 # letter size 2551 x 3295 pixels)
-w1, h1 = 1200, 600
+w1, h1 = 1200, 610
 imgbg = Image.new(mode="RGB", size=(w1, h1), color=(255, 255, 255))
 
 
 def qr_gen(acode, date, sn, user):
     # Generate QR code
     g_img = qrcode.make(f'{acode}, {sn}')
-    g_img2 = g_img.resize(size=(250, 250))
+    g_img2 = g_img.resize(size=(270, 270))
 
     # Put the logo and QC code on background
     base = imgbg.copy()
-    base.paste(logore, (31, 125), logore)
+    base.paste(logore, (120, 125), logore)
     base.paste(g_img2, (31, 350))
     draw = ImageDraw.Draw(base)
     draw.text((31.25, 31.25), "PROPRIÉTÉ DE / PROPERTY OF", color1, font=font)
@@ -48,7 +51,7 @@ def qr_gen(acode, date, sn, user):
     draw.text((313, 493), 'UTILISATEUR / USER :', color1, font=font2)
     draw.text((525, 368), f'{date}', color1, font=font2)
     draw.text((525, 431), f'{acode}', color1, font=font2)
-    draw.text((313, 545), f'{user}', color1, font=font2)
+    draw.text((340, 560), f'{user}', color1, font=font2)
 
     # Size adjusting
     base1 = base.resize(size=(1008, 504))
