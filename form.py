@@ -48,7 +48,7 @@ class AssetForm(FlaskForm):
         "Com2"
         )
     status = SelectField(
-        "Status(1=Normal, 0=Obnormal)", choices=[0,1],default=1,
+        "Status(1=Normal, 0=Abnormal)", choices=[0,1],default=1,
         validators=[DataRequired()]
         )
     submit = SubmitField('Submit')
@@ -98,7 +98,7 @@ class EditForm(FlaskForm):
         "Com2"
         )
     status = SelectField(
-        "Status(1=Normal, 0=Obnormal)", choices=[0,1], default=1,
+        "Status(1=Normal, 0=Abnormal)", choices=[0,1], default=1,
         validators=[DataRequired()]
         )
     submit = SubmitField('Submit')
