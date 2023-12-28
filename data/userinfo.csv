@@ -1,6 +1,6 @@
-,UserID,UserName,Dep.,email
-0,abcd,efg,,abcd@ultiumcam.net
-1,wow2,testuser4,bad,wow2@ultiumcam.net
-2,IT,IT_inventory,IT,IT@ultiumcam.net
-4,test3,testuser3,ㅎㅎㅎ,test3@ultiumcam.net
-5,awesome,isthiscorrect?,생산,awesome@ultiumcam.net
+,UserID,UserName,Dep.,EmNo,email
+0,IT,IT_inventory,IT,456789.0,IT@ultiumcam.net
+1,abcd,efg,Finance,859674.0,abcd@ultiumcam.net
+2,test3,testuser3,Marketing,789123.0,test3@ultiumcam.net
+3,wow2,testuser4,Procurement,567987.0,wow2@ultiumcam.net
+4,awesome,isthiscorrect?,Construction,123456.0,awesome@ultiumcam.net
