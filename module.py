@@ -51,7 +51,7 @@ def qr_gen(acode, date, sn, user):
     draw.text((313, 493), 'UTILISATEUR / USER :', color1, font=font2)
     draw.text((525, 368), f'{date}', color1, font=font2)
     draw.text((525, 431), f'{acode}', color1, font=font2)
-    draw.text((340, 560), f'{user}', color1, font=font2)
+    draw.text((358, 555), f'{user}', color1, font=font2)
 
     # Size adjusting
     base1 = base.resize(size=(1008, 504))
